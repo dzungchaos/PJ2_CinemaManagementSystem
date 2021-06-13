@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="300" prefWidth="400" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.Pay.PurchaseTicketBoundary">
+
+    <Label text="Tên chủ thẻ" GridPane.rowIndex="1">
+        <tooltip>
+            <Tooltip text="Nhập chữ HOA, không viết dấu" />
+        </tooltip>
+    </Label>
+    <TextField fx:id="fieldOwnerName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="Mã số thẻ" GridPane.rowIndex="2" />
+    <TextField fx:id="fieldCardNumber" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <HBox spacing="40.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <children>
+            <Button fx:id="buttonOK" onAction="#checkBankAccountExist" text="Đồng ý" />
+            <Button fx:id="buttonCANCEL" onAction="#closeWindow" text="Thoát" />
+        </children>
+        <GridPane.margin>
+            <Insets top="10.0" />
+        </GridPane.margin>
+    </HBox>
+    <ImageView fitHeight="130.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="2">
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+        <image>
+            <Image url="@/toolbarButtonGraphics/media/Movie24.gif" />
+        </image></ImageView>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+
+</GridPane>

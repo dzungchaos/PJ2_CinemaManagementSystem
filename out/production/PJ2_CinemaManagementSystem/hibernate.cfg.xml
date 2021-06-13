@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">
+            com.microsoft.sqlserver.jdbc.SQLServerDriver
+        </property>
+        <property name="hibernate.connection.url">
+            jdbc:sqlserver://localhost;databaseName=PJ2_CinemaDB;
+        </property>
+        <property name="hibernate.connection.username">
+            sa
+        </property>
+        <property name="hibernate.connection.password">
+            1234
+        </property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">1</property>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.SQLServerDialect
+        </property>
+
+        <!-- Show all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
+        <!-- List mapping XML files -->
+        <mapping class = "entity.BankAccount" />
+        <mapping class = "entity.Cinema" />
+        <mapping class = "entity.Movie" />
+        <mapping class = "entity.Showtime" />
+        <mapping class = "entity.Ticket" />
+        <mapping class = "entity.User" />
+    </session-factory>
+</hibernate-configuration>

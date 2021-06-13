@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="200.0" prefWidth="300.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.Login.SingUpBoundary">
+
+    <Label text="Nhập thông tin đăng nhập vào đây" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+    <Label text="Tên đăng nhập" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="fieldUserName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="Mật khẩu" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <PasswordField fx:id="fieldPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <children>
+         <Button fx:id="buttonSignUp" mnemonicParsing="false" prefWidth="75.0" text="Đăng ký" onAction="#doSignUp"/>
+         <Button fx:id="buttonExit" mnemonicParsing="false" prefWidth="75.0" text="Thoát" onAction="#closeWindows" />
+      </children>
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+   </HBox>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
