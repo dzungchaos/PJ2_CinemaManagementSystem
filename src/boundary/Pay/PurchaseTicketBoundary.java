@@ -73,7 +73,7 @@ public class PurchaseTicketBoundary {
             alert.setTitle("Thanh toán thành công");
             alert.setHeaderText(null);
             alert.setContentText("Cảm ơn bạn đã sử dụng dịch vụ của rạp chiếu phim Anh Sáu! Chúc bạn xem phim vui vẻ!");
-            alert.show();
+            alert.showAndWait();
             bankAccounts.clearData();
             Stage stage = (Stage) buttonOK.getScene().getWindow();
             stage.close();

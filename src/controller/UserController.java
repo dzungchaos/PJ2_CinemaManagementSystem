@@ -68,6 +68,57 @@ public class UserController {
         return users_id;
     }
 
+    public void changePassword(User selectedUser, String password) {
+        selectedUser.setUsers_password(password);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedUser);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        users.clear();
+        loadUsers();
+    }
+
+    public void modifyInfo(User selectedUser,
+                           String users_name,
+                           String users_phone,
+                           String users_gender,
+                           String users_birthday,
+                           String users_address) {
+
+        selectedUser.setUsers_name(users_name);
+        selectedUser.setUsers_phone(users_phone);
+        selectedUser.setUsers_gender(users_gender);
+        selectedUser.setUsers_birthday(users_birthday);
+        selectedUser.setUsers_address(users_address);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+
+        try {
+            transaction = session.beginTransaction();
+            session.save(selectedUser);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        users.clear();
+        loadUsers();
+    }
 
     public boolean checkUserExist(String userName) {
         for (User user : users)
