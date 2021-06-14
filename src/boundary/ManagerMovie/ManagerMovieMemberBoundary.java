@@ -75,6 +75,14 @@ public class ManagerMovieMemberBoundary {
     }
 
     public void doBuyTicket(ActionEvent event) {
-
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để mua vé");
+            alert.show();
+            return;
+        }
     }
 }

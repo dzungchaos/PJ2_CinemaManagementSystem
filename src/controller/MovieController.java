@@ -70,9 +70,7 @@ public class MovieController {
                             String movies_genres,
                             Integer movies_duration,
                             String movies_airDate,
-                            Boolean movies_adultRated,
-                            String movies_showtimes,
-                            Boolean movies_isActive) {
+                            String movies_showtimes) {
 
         Session session = factory.openSession();
         Transaction transaction = null;
@@ -88,9 +86,9 @@ public class MovieController {
                                     movies_genres,
                                     movies_duration,
                                     movies_airDate,
-                                    movies_adultRated,
+                                    false,
                                     movies_showtimes,
-                                    movies_isActive);
+                                    true);
             movies_id = (Integer) session.save(movie);
             transaction.commit();
             movies.add(movie);
@@ -114,7 +112,6 @@ public class MovieController {
                             String movies_genres,
                             Integer movies_duration,
                             String movies_airDate,
-                            Boolean movies_adultRated,
                             String movies_showtimes) {
 
         selectedMovie.setMovies_avatarUrl(movies_avatarUrl);
@@ -125,7 +122,6 @@ public class MovieController {
         selectedMovie.setMovies_genres(movies_genres);
         selectedMovie.setMovies_duration(movies_duration);
         selectedMovie.setMovies_airDate(movies_airDate);
-        selectedMovie.setMovies_adultRated(movies_adultRated);
         selectedMovie.setMovies_showtimes(movies_showtimes);
         Session session = factory.openSession();
         Transaction transaction = null;

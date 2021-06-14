@@ -9,9 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,18 +22,26 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class ManagerMovieBoundary {
-    private User currentUser;
-
+    @FXML
+    public Button buttonUnlockMovie;
+    @FXML
+    public Button buttonLockMovie;
     @FXML
     public TableView<Movie> tableViewMovie;
-
     @FXML
     public TextField fieldFindMovie;
-
+    @FXML
+    public Button buttonShowtime;
+    @FXML
+    public Button buttonUpdateMovie;
+    @FXML
+    public Button buttonAddMovie;
+    @FXML
     private MovieController movies;
-
     @FXML
     public GridPane moviePanel;
+
+    private User currentUser;
 
     public void initData(User user) {
         currentUser = user;
@@ -75,26 +85,130 @@ public class ManagerMovieBoundary {
 
     @FXML
     public void doBuyTicket(ActionEvent event) {
-
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để mua vé");
+            alert.show();
+            return;
+        }
     }
 
     @FXML
-    public void doAddMovie(ActionEvent event) {
-
+    public void doAddMovie(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerMovie/AddMovieBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("THÊM PHIM");
+        stage.setScene(new Scene(parent));
+        stage.initOwner((Stage) buttonAddMovie.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        movies.clearData();
+        movies.loadMovies();
+        tableViewMovie.setItems(movies.getMovies());
     }
 
     @FXML
-    public void doUpdateMovie(ActionEvent event) {
+    public void doUpdateMovie(ActionEvent event) throws IOException {
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để tiến hành cập nhật phim");
+            alert.show();
+            return;
+        }
 
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerMovie/UpdateMovieBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("CẬP NHẬT PHIM");
+        stage.setScene(new Scene(parent));
+        UpdateMovieBoundary boundary = loader.getController();
+        boundary.initData(selectedMovie);
+        stage.initOwner((Stage) buttonAddMovie.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        movies.clearData();
+        movies.loadMovies();
+        tableViewMovie.setItems(movies.getMovies());
     }
 
     @FXML
     public void doLockMovie(ActionEvent event) {
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để tiến hành khoá phim");
+            alert.show();
+            return;
+        }
 
+        if (!selectedMovie.getMovies_isActive()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Phim đã bị khoá");
+            alert.setHeaderText(null);
+            alert.setContentText("Phim bạn chọn đã bị khoá, hãy chọn một phim khác!");
+            alert.show();
+            return;
+        }
+
+        movies.lockMovie(selectedMovie);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Khoá thành công");
+        alert.setHeaderText(null);
+        alert.setContentText("Đã khoá phim được chọn! Người dùng sẽ không thể mua vé xem phim của phim này");
+        alert.show();
+        movies.clearData();
+        movies.loadMovies();
     }
 
     @FXML
     public void doUnlockMovie(ActionEvent event) {
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để tiến hành mở khoá phim");
+            alert.show();
+            return;
+        }
+
+        if (selectedMovie.getMovies_isActive()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Phim đã được mở khoá");
+            alert.setHeaderText(null);
+            alert.setContentText("Phim bạn chọn đã được mở khoá, hãy chọn một phim khác!");
+            alert.show();
+            return;
+        }
+
+        movies.unlockMovie(selectedMovie);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Mở khoá thành công");
+        alert.setHeaderText(null);
+        alert.setContentText("Đã mở khoá phim được chọn! Người dùng sẽ có thể mua vé xem phim của phim này");
+        alert.show();
+        movies.clearData();
+        movies.loadMovies();
+    }
+
+    @FXML
+    public void enableButton(MouseEvent event) {
+
+    }
+
+    @FXML
+    public void doManageShowtime(ActionEvent event) {
 
     }
 }

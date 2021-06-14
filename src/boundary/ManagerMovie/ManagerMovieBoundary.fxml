@@ -74,6 +74,16 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button fx:id="buttonShowtime" onAction="#doManageShowtime">
+                    <tooltip>
+                        <Tooltip text="Quản lý suất chiếu phim" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/ComposeMail16.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </HBox>
         <HBox>
@@ -97,7 +107,7 @@
         </HBox>
     </HBox>
 
-    <TableView fx:id="tableViewMovie" GridPane.rowIndex="1">
+    <TableView fx:id="tableViewMovie" GridPane.rowIndex="1" onMouseClicked="#enableButton">
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
         </columnResizePolicy>
