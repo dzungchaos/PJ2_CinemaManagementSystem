@@ -1,14 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="boundary.Homepage.HomepageStaffBoundary"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.Homepage.HomepageStaffBoundary">
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="120.0" spacing="10.0" style="-fx-border-width: 2; -fx-background-color: grey; -fx-border-color: black;" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Cá nhân" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/About16.gif" />
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Button fx:id="buttonMovie" onAction="#showMovieManager" prefWidth="100.0" text="Phim">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/media/Movie24.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="buttonTicket" prefWidth="100.0" text="Vé xem" onAction="#doShowTicketManager">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/History24.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="buttonStatistic" prefWidth="100.0" text="Thống kê" onAction="#doShowStatisticManager">
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/Information24.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <VBox alignment="BOTTOM_CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#doLogOut" prefWidth="100.0" text="Đăng xuất" textAlignment="CENTER">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/media/StepBack24.gif" />
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="buttonModify" onAction="#doModify" prefWidth="100.0" text="Cập nhật" textAlignment="CENTER">
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Edit24.gif" />
+                                </ImageView>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Cập nhật thông tin cá nhân" />
+                            </tooltip>
+                        </Button>
+                        <Button fx:id="buttonChangePassword" onAction="#doChangePassword" prefWidth="100.0" text="Đổi MK" textAlignment="CENTER">
+                            <tooltip>
+                                <Tooltip text="Thay đổi mật khẩu cho tài khoản của bạn" />
+                            </tooltip>
+                            <graphic>
+                                <ImageView>
+                                    <Image url="@/toolbarButtonGraphics/general/Edit24.gif" />
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets left="5.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="20.0" top="20.0" />
+            </padding>
+        </VBox>
 
-</AnchorPane>
+    </left>
+    <center>
+        <GridPane alignment="CENTER_LEFT" hgap="10" vgap="10">
+            <Label text="Họ và tên: " GridPane.rowIndex="2">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/toolbarButtonGraphics/general/Bookmarks24.gif" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelName" text="Khách" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label text="Số điện thoại: " GridPane.rowIndex="3">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/toolbarButtonGraphics/general/Bookmarks24.gif" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelPhone" text="0961199281" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label text="Giới tính: " GridPane.rowIndex="4">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/toolbarButtonGraphics/general/Bookmarks24.gif" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelGender" text="Nam" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label text="Ngày sinh: " GridPane.rowIndex="5">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/toolbarButtonGraphics/general/Bookmarks24.gif" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelBirthday" text="10-12-2000" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label text="Địa chỉ: " GridPane.rowIndex="6">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/toolbarButtonGraphics/general/Bookmarks24.gif" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <Label fx:id="labelAddress" text="TP.Thái Nguyên, Thái Nguyên" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                <font>
+                    <Font size="21.0" />
+                </font>
+            </Label>
+            <ImageView fx:id="imageViewUserAVT" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <image>
+                    <Image url="@/toolbarButtonGraphics/general/About24.gif" />
+                </image>
+            </ImageView>
+            <Label contentDisplay="CENTER" style="-fx-background-color: yellow; -fx-border-width: 3; -fx-border-color: red;" text="RẠP CHIẾU PHIM ANH SÁU" textAlignment="CENTER" textFill="LIME" underline="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+                <font>
+                    <Font name="Times New Roman Bold" size="30.0" />
+                </font>
+            </Label>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+            <BorderPane.margin>
+                <Insets left="10.0" />
+            </BorderPane.margin>
+        </GridPane>
+    </center>
+</BorderPane>

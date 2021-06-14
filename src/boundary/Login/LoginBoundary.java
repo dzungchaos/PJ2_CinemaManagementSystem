@@ -1,6 +1,7 @@
 package boundary.Login;
 
 import boundary.Homepage.HomepageMemberBoundary;
+import boundary.Homepage.HomepageStaffBoundary;
 import boundary.Pay.PurchaseTicketBoundary;
 import controller.UserController;
 import entity.User;
@@ -22,11 +23,11 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class LoginBoundary {
-    private final static String HEAD_UI = "/boundary/Pay/PurchaseTicketBoundary.fxml";
+    private final static String HEAD_UI = "/boundary/Homepage/HomepageHeadBoundary.fxml";
     private final static String HEAD_TITTLE = "Chào mừng Chủ Rạp";
-    private final static String ADMIN_UI = "/boundary/Pay/PurchaseTicketBoundary.fxml";
+    private final static String ADMIN_UI = "/boundary/Homepage/HomepageAdminBoundary.fxml";
     private final static String ADMIN_TITTLE = "Chào mừng Quản trị viên";
-    private final static String STAFF_UI = "/boundary/Pay/PurchaseTicketBoundary.fxml";
+    private final static String STAFF_UI = "/boundary/Homepage/HomepageStaffBoundary.fxml";
     private final static String STAFF_TITTLE = "Chào mừng Nhân viên";
     private final static String MEMBER_UI = "/boundary/Homepage/HomepageMemberBoundary.fxml";
     private final static String MEMBER_TITTLE = "Chào mừng thành viên";
@@ -72,9 +73,13 @@ public class LoginBoundary {
         stage.setTitle(tittle);
         stage.setScene(new Scene(parent));
         switch (loc) {
+            case STAFF_UI:
+                HomepageStaffBoundary boundaryStaff = loader.getController();
+                boundaryStaff.initData(loginUser);
+                break;
             case MEMBER_UI:
-                HomepageMemberBoundary boundary = loader.getController();
-                boundary.initData(loginUser);
+                HomepageMemberBoundary boundaryMember = loader.getController();
+                boundaryMember.initData(loginUser);
                 break;
             default:
                 break;

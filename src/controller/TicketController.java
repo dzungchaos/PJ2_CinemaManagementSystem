@@ -16,9 +16,11 @@ public class TicketController {
     private static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     ObservableList<Ticket> tickets;
+    ObservableList<Ticket> foundTickets;
 
     public TicketController() {
         tickets = FXCollections.observableArrayList();
+        foundTickets = FXCollections.observableArrayList();
         loadTickets();
     }
 
@@ -66,15 +68,15 @@ public class TicketController {
     }
 
     public ObservableList<Ticket> getListTicket(String movieNamePart) {
-        ObservableList<Ticket> listTickets = null;
+        foundTickets.clear();
 
         for (Ticket ticket : tickets) {
             if (ticket.getTickets_movies_name().contains(movieNamePart)) {
-                listTickets.add(ticket);
+                foundTickets.add(ticket);
             }
         }
 
-        return listTickets;
+        return foundTickets;
     }
 
     public Ticket getTicket(Integer tickets_id) {
