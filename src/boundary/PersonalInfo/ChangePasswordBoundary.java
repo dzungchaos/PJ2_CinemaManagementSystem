@@ -34,6 +34,7 @@ public class ChangePasswordBoundary {
 
     public void initData(User user) {
         currentUser = user;
+
     }
 
     public void initialize() {
@@ -54,7 +55,6 @@ public class ChangePasswordBoundary {
             return;
         }
 
-        currentUser.setUsers_password(newPassword);
         users.changePassword(currentUser, newPassword);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Đổi mật khẩu thành công");

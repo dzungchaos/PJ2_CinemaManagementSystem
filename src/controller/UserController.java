@@ -89,24 +89,13 @@ public class UserController {
         loadUsers();
     }
 
-    public void modifyInfo(User selectedUser,
-                           String users_name,
-                           String users_phone,
-                           String users_gender,
-                           String users_birthday,
-                           String users_address) {
-
-        selectedUser.setUsers_name(users_name);
-        selectedUser.setUsers_phone(users_phone);
-        selectedUser.setUsers_gender(users_gender);
-        selectedUser.setUsers_birthday(users_birthday);
-        selectedUser.setUsers_address(users_address);
+    public void modifyInfo(User selectedUser) {
         Session session = factory.openSession();
         Transaction transaction = null;
 
         try {
             transaction = session.beginTransaction();
-            session.save(selectedUser);
+            session.update(selectedUser);
             transaction.commit();
         } catch (HibernateException e) {
             if (transaction != null)

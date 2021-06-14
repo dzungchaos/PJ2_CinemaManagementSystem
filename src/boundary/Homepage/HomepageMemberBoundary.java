@@ -1,6 +1,7 @@
 package boundary.Homepage;
 
 import boundary.PersonalInfo.ChangePasswordBoundary;
+import boundary.PersonalInfo.ModifyPersonalInfoBoundary;
 import controller.UserController;
 import entity.User;
 import javafx.event.ActionEvent;
@@ -61,10 +62,6 @@ public class HomepageMemberBoundary {
         labelAddress.setText(currentUser.getUsers_address());
     }
 
-    public void initialize() {
-
-    }
-
     @FXML
     public void doLogOut(ActionEvent event) {
         currentUser.setUsers_isOnline(false);
@@ -73,8 +70,28 @@ public class HomepageMemberBoundary {
     }
 
     @FXML
-    public void doModify() {
-
+    public void doModify() throws IOException {
+        Integer currentID = currentUser.getUsers_id();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/PersonalInfo/ModifyPersonalInfoBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("CẬP NHẬT THÔNG TIN");
+        stage.setScene(new Scene(parent));
+        ModifyPersonalInfoBoundary boundary = loader.getController();
+        boundary.initData(currentUser);
+        stage.initOwner((Stage) buttonModify.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        users.clearData();
+        users.loadUsers();
+        currentUser = users.getUser(currentID);
+        System.out.println(currentUser.getUsers_name());
+        labelName.setText(currentUser.getUsers_name());
+        labelPhone.setText(currentUser.getUsers_phone());
+        labelGender.setText(currentUser.getUsers_gender());
+        labelBirthday.setText(currentUser.getUsers_birthday());
+        labelAddress.setText(currentUser.getUsers_address());
     }
 
     @FXML
@@ -100,6 +117,7 @@ public class HomepageMemberBoundary {
     public void showMovieManager() {
 
     }
+
 }
 
 
