@@ -86,6 +86,18 @@ public class UserController {
         return false;
     }
 
+    public boolean checkUserUnlock(String userName, String password) {
+        for (User user : users) {
+            if (userName.equals(user.getUsers_userName())
+                    && password.equals(user.getUsers_password())){
+                if(user.getUsers_isActive()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public User getUser(String userName, String password) {
         User gotUser = null;
 
@@ -123,12 +135,75 @@ public class UserController {
         return gotUser;
     }
 
-    public void lockUser() {
+    public ObservableList<User> getListUserByName(String userNamePart) {
+        ObservableList<User> listUser = null;
 
+        for (User user : users) {
+            if (user.getUsers_name().contains(userNamePart))
+                listUser.add(user);
+        }
+
+        return listUser;
     }
 
-    public void unlockUser() {
+    public void lockUser(User selectedUser) {
+        selectedUser.setUsers_isActive(false);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedUser);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
 
+        users.clear();
+        loadUsers();
+    }
+
+    public void unlockUser(User selectedUser) {
+        selectedUser.setUsers_isActive(true);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedUser);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        users.clear();
+        loadUsers();
+    }
+
+    public void changePermissionUser(User selectedUser, String permission) {
+        selectedUser.setUsers_permission(permission);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedUser);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        users.clear();
+        loadUsers();
     }
 
     public void loadUsers() {
@@ -171,6 +246,5 @@ public class UserController {
     public void clearData() {
         users.clear();
     }
-
 
 }

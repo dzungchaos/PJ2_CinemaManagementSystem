@@ -62,6 +62,12 @@ public class ShowtimeController {
     public ObservableList<Showtime> getListShowtime(String movieNamePart) {
         ObservableList<Showtime> listShowtimes = null;
 
+        for (Showtime showtime : showtimes) {
+            if (showtime.getShowtimes_movies_name().contains(movieNamePart)) {
+                listShowtimes.add(showtime);
+            }
+        }
+
         return listShowtimes;
     }
 
@@ -75,6 +81,30 @@ public class ShowtimeController {
         }
 
         return gotShowtime;
+    }
+
+    public void updateShowtime(Showtime selectedShowtime,
+                               String showtimes_time,
+                               String showtimes_date) {
+
+        selectedShowtime.setShowtimes_time(showtimes_time);
+        selectedShowtime.setShowtimes_date(showtimes_date);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedShowtime);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        showtimes.clear();
+        loadShowtimes();
     }
 
     public void loadShowtimes() {

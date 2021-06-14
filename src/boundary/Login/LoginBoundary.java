@@ -1,15 +1,19 @@
 package boundary.Login;
 
+import boundary.Homepage.HomepageMemberBoundary;
+import boundary.Pay.PurchaseTicketBoundary;
 import controller.UserController;
 import entity.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,7 +28,7 @@ public class LoginBoundary {
     private final static String ADMIN_TITTLE = "Chào mừng Quản trị viên";
     private final static String STAFF_UI = "/boundary/Pay/PurchaseTicketBoundary.fxml";
     private final static String STAFF_TITTLE = "Chào mừng Nhân viên";
-    private final static String MEMBER_UI = "/boundary/Pay/PurchaseTicketBoundary.fxml";
+    private final static String MEMBER_UI = "/boundary/Homepage/HomepageMemberBoundary.fxml";
     private final static String MEMBER_TITTLE = "Chào mừng thành viên";
     private final static String SIGNUP_UI = "/boundary/Login/SignUpDialog.fxml";
     private final static String SIGNUP_TITTLE = "Đăng ký tài khoản mới";
@@ -59,11 +63,24 @@ public class LoginBoundary {
         users = new UserController();
     }
 
+
     public void loadWindow(String loc, String tittle) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource(loc));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(loc));
+        Parent parent = loader.load();
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle(tittle);
         stage.setScene(new Scene(parent));
+        switch (loc) {
+            case MEMBER_UI:
+                HomepageMemberBoundary boundary = loader.getController();
+                boundary.initData(loginUser);
+                break;
+            default:
+                break;
+        }
+//        PurchaseTicketBoundary boundary = loader.getController();
+//        boundary.initData(loginUser);
         stage.initOwner((Stage) buttonSignIn.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.show();
@@ -96,12 +113,23 @@ public class LoginBoundary {
     public void doLogin() throws IOException {
         String userName = fieldUserName.getText();
         String password = fieldPassword.getText();
+        fieldUserName.clear();
+        fieldPassword.clear();
 
         if (!users.checkLoginInfo(userName, password)) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Sai thông tin đăng nhập!");
             alert.setHeaderText(null);
             alert.setContentText("Sai tên đăng nhập hoặc mật khẩu, vui lòng nhập lại thông tin để đăng nhập");
+            alert.show();
+            return;
+        }
+
+        if (!users.checkUserUnlock(userName, password)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Tài khoản đã bị khoá!");
+            alert.setHeaderText(null);
+            alert.setContentText("Tài khoản này đã bị khoá. Vui lòng liên hệ với quản trị viên để biết thêm thông tin chi tiết");
             alert.show();
             return;
         }

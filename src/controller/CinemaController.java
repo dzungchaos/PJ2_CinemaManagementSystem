@@ -57,7 +57,40 @@ public class CinemaController {
     public ObservableList<Cinema> getListCinema(String cinemaNamePart) {
         ObservableList<Cinema> listCinemas = null;
 
+        for (Cinema cinema : cinemas) {
+            if (cinema.getCinemas_name().contains(cinemaNamePart)) {
+                listCinemas.add(cinema);
+            }
+        }
+
         return listCinemas;
+    }
+
+    public void updateCinema(Cinema selectedCinema,
+                             String cinemaName,
+                             Integer totalSeats,
+                             String cinemaManager) {
+
+        selectedCinema.setCinemas_name(cinemaName);
+        selectedCinema.setCinemas_totalSeats(totalSeats);
+        selectedCinema.setCinemas_manager(cinemaManager);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+
+        try {
+             transaction = session.beginTransaction();
+             session.update(selectedCinema);
+             transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        cinemas.clear();
+        loadCinemas();
     }
 
     public Cinema getCinema(Integer cinemas_id) {
@@ -107,11 +140,45 @@ public class CinemaController {
     }
 
     public void lockCinema(Cinema selectedCinema) {
+        selectedCinema.setCinemas_isActive(false);
+        Session session = factory.openSession();
+        Transaction transaction = null;
 
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedCinema);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        cinemas.clear();
+        loadCinemas();
     }
 
     public void unlockCinema(Cinema selectedCinema) {
+        selectedCinema.setCinemas_isActive(true);
+        Session session = factory.openSession();
+        Transaction transaction = null;
 
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedCinema);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        cinemas.clear();
+        loadCinemas();
     }
 
     public ObservableList<Cinema> getUnlockCinema() {
@@ -126,4 +193,7 @@ public class CinemaController {
         return unlockCinemas;
     }
 
+    public void clearData() {
+        cinemas.clear();
+    }
 }

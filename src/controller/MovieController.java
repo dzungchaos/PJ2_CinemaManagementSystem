@@ -70,7 +70,53 @@ public class MovieController {
     public ObservableList<Movie> getListMovie(String movieNamePart) {
         ObservableList<Movie> listMovies = null;
 
+        for (Movie movie : movies) {
+            if (movie.getMovies_name().contains(movieNamePart)) {
+                listMovies.add(movie);
+            }
+        }
+
         return listMovies;
+    }
+
+    public void updateMovie(Movie selectedMovie,
+                            String movies_avatarUrl,
+                            String movies_name,
+                            String movies_description,
+                            String movies_director,
+                            String movies_actors,
+                            String movies_genres,
+                            Integer movies_duration,
+                            String movies_airDate,
+                            Boolean movies_adultRated,
+                            String movies_showtimes) {
+
+        selectedMovie.setMovies_avatarUrl(movies_avatarUrl);
+        selectedMovie.setMovies_name(movies_name);
+        selectedMovie.setMovies_description(movies_description);
+        selectedMovie.setMovies_director(movies_director);
+        selectedMovie.setMovies_actors(movies_actors);
+        selectedMovie.setMovies_genres(movies_genres);
+        selectedMovie.setMovies_duration(movies_duration);
+        selectedMovie.setMovies_airDate(movies_airDate);
+        selectedMovie.setMovies_adultRated(movies_adultRated);
+        selectedMovie.setMovies_showtimes(movies_showtimes);
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedMovie);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        movies.clear();
+        loadMovies();
     }
 
     public Movie getMovie(Integer movies_id) {
@@ -129,11 +175,45 @@ public class MovieController {
     }
 
     public void lockMovie(Movie selectedMovie) {
+        selectedMovie.setMovies_isActive(false);
+        Session session = factory.openSession();
+        Transaction transaction = null;
 
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedMovie);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        movies.clear();
+        loadMovies();
     }
 
     public void unlockMovie(Movie selectedMovie) {
+        selectedMovie.setMovies_isActive(true);
+        Session session = factory.openSession();
+        Transaction transaction = null;
 
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedMovie);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null)
+                transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        movies.clear();
+        loadMovies();
     }
 
     public ObservableList<Movie> getUnlockMovie() {

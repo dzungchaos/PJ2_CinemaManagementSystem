@@ -68,6 +68,12 @@ public class TicketController {
     public ObservableList<Ticket> getListTicket(String movieNamePart) {
         ObservableList<Ticket> listTickets = null;
 
+        for (Ticket ticket : tickets) {
+            if (ticket.getTickets_movies_name().contains(movieNamePart)) {
+                listTickets.add(ticket);
+            }
+        }
+
         return listTickets;
     }
 

@@ -1,12 +1,16 @@
 package boundary.Pay;
 
+import boundary.Login.LoginBoundary;
 import controller.BankAccountController;
 import entity.BankAccount;
+import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class PurchaseTicketBoundary {
@@ -24,14 +28,27 @@ public class PurchaseTicketBoundary {
     @FXML
     public Button buttonOK;
 
+    private User currentUser;
+
     public void initialize() {
         bankAccounts = new BankAccountController();
+
+    }
+
+    public void initData(User selectedUser) {
+        currentUser = selectedUser;
     }
 
     @FXML
     public void closeWindow(ActionEvent event) {
-        bankAccounts.clearData();
         Stage stage = (Stage) buttonCANCEL.getScene().getWindow();
+        if (currentUser != null) {
+            System.out.println("Current User ID: " + currentUser.getUsers_id());
+            System.out.println("Current User Name:" + currentUser.getUsers_name());
+            System.out.println("Current User username: " + currentUser.getUsers_userName());
+            System.out.println("Current User permission: " + currentUser.getUsers_permission());
+        }
+        bankAccounts.clearData();
         stage.close();
     }
 

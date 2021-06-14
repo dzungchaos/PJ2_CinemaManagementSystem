@@ -6,19 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main { //extends Application {
+public class Main extends Application {
 
-//    @Override
-//    public void start(Stage primaryStage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("boundary/Login/LoginBoundary.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root));
-//        primaryStage.show();
-//    }
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("boundary/Login/LoginBoundary.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
 
     public static void main(String[] args) {
-//        launch(args);
+        launch(args);
 
 //        UserController userController = new UserController();
 //        userController.listUsers();
@@ -34,8 +34,8 @@ public class Main { //extends Application {
 
 //        TicketController ticketController = new TicketController();
 //        ticketController.listTickets();
-
-        ShowtimeController showtimeController = new ShowtimeController();
-        showtimeController.listShowtimes();
+//
+//        ShowtimeController showtimeController = new ShowtimeController();
+//        showtimeController.listShowtimes();
     }
 }
