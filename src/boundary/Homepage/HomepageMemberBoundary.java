@@ -1,5 +1,6 @@
 package boundary.Homepage;
 
+import boundary.ManagerMovie.ManagerMovieMemberBoundary;
 import boundary.PersonalInfo.ChangePasswordBoundary;
 import boundary.PersonalInfo.ModifyPersonalInfoBoundary;
 import controller.UserController;
@@ -86,7 +87,6 @@ public class HomepageMemberBoundary {
         users.clearData();
         users.loadUsers();
         currentUser = users.getUser(currentID);
-        System.out.println(currentUser.getUsers_name());
         labelName.setText(currentUser.getUsers_name());
         labelPhone.setText(currentUser.getUsers_phone());
         labelGender.setText(currentUser.getUsers_gender());
@@ -114,8 +114,21 @@ public class HomepageMemberBoundary {
     }
 
     @FXML
-    public void showMovieManager() {
-
+    public void showMovieManager() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerMovie/ManagerMovieMemberBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("DANH SÁCH PHIM RẠP ĐANG CHIẾU");
+        stage.setScene(new Scene(parent));
+        stage.setResizable(false);
+        ManagerMovieMemberBoundary boundary = loader.getController();
+        boundary.initData(currentUser);
+        stage.initOwner((Stage) buttonModify.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        users.clearData();
+        users.loadUsers();
     }
 
 }

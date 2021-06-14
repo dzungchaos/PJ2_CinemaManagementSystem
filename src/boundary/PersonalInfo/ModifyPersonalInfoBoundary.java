@@ -21,7 +21,7 @@ public class ModifyPersonalInfoBoundary {
     public TextField fieldBirthday;
     @FXML
     public TextField fieldAddress;
-    
+
     @FXML
     public Button buttonExit;
 

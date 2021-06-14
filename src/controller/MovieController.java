@@ -16,13 +16,51 @@ public class MovieController {
     private static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     ObservableList<Movie> movies;
+    ObservableList<Movie> unlockMovies;
+    ObservableList<Movie> foundMovies;
+    ObservableList<Movie> foundAndUnlockMovies;
 
     public MovieController() {
         movies = FXCollections.observableArrayList();
+        unlockMovies = FXCollections.observableArrayList();
+        foundMovies = FXCollections.observableArrayList();
+        foundAndUnlockMovies = FXCollections.observableArrayList();
         loadMovies();
+        loadUnlockMovies();
+
     }
 
-    public ObservableList<Movie> getMovies;
+    public ObservableList<Movie> getMovies() {
+        return movies;
+    }
+
+    public ObservableList<Movie> getUnlockMovies() {
+        return unlockMovies;
+    }
+
+    public ObservableList<Movie> getListMovie(String movieNamePart) {
+        foundMovies.clear();
+
+        for (Movie movie : movies) {
+            if (movie.getMovies_name().contains(movieNamePart)) {
+                foundMovies.add(movie);
+            }
+        }
+
+        return foundMovies;
+    }
+
+    public ObservableList<Movie> getListUnlockMovie(String movieNamePart) {
+        foundMovies.clear();
+
+        for (Movie movie : movies) {
+            if (movie.getMovies_name().contains(movieNamePart) && movie.getMovies_isActive()) {
+                foundMovies.add(movie);
+            }
+        }
+
+        return foundMovies;
+    }
 
     public Integer addMovie(String movies_avatarUrl,
                             String movies_name,
@@ -65,18 +103,6 @@ public class MovieController {
         }
 
         return movies_id;
-    }
-
-    public ObservableList<Movie> getListMovie(String movieNamePart) {
-        ObservableList<Movie> listMovies = null;
-
-        for (Movie movie : movies) {
-            if (movie.getMovies_name().contains(movieNamePart)) {
-                listMovies.add(movie);
-            }
-        }
-
-        return listMovies;
     }
 
     public void updateMovie(Movie selectedMovie,
@@ -216,16 +242,12 @@ public class MovieController {
         loadMovies();
     }
 
-    public ObservableList<Movie> getUnlockMovie() {
-        ObservableList<Movie> unlockMovies = null;
-
+    public void loadUnlockMovies() {
         for (Movie movie : movies) {
             if (movie.getMovies_isActive()) {
                 unlockMovies.add(movie);
             }
         }
-
-        return unlockMovies;
     }
 
     public void clearData() {

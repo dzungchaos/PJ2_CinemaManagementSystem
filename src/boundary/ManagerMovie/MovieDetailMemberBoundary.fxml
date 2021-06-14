@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="600.0" prefWidth="450.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ManagerMovie.MovieDetailMemberBoundary">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label text="ID Phim" GridPane.rowIndex="1">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Tên phim" GridPane.rowIndex="2">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="TOP_LEFT" text="Mô tả" GridPane.rowIndex="3">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Đạo diễn" GridPane.rowIndex="4">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Diễn viên" GridPane.rowIndex="5">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Thể loại" GridPane.rowIndex="6">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Thời lượng" GridPane.rowIndex="7">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Công chiếu" GridPane.rowIndex="8">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label text="Các suất chiếu" GridPane.rowIndex="9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieID" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieName" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieDescription" prefWidth="250.0" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieDirector" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieActors" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieGenres" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieDuration" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieAirDate" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMovieShowtime" prefWidth="250.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="THÔNG TIN CHI TIẾT PHIM" GridPane.columnSpan="2">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonExit" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#closeWindow" prefWidth="75.0" text="Thoát" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="10" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" top="10.0" />
+   </padding>
+</GridPane>
