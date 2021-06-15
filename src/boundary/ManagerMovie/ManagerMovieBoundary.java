@@ -228,9 +228,6 @@ public class ManagerMovieBoundary {
         stage.initOwner((Stage) buttonShowtime.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
-        movies.clearData();
-        movies.loadMovies();
-        tableViewMovie.setItems(movies.getMovies());
     }
 
     public void doAddShowtime(ActionEvent event) throws IOException {

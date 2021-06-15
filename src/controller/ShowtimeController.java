@@ -17,12 +17,10 @@ public class ShowtimeController {
 
     ObservableList<Showtime> showtimes;
     ObservableList<Showtime> foundShowtimes;
-    ObservableList<Showtime> showtimesByMovie;
 
     public ShowtimeController() {
         showtimes = FXCollections.observableArrayList();
         foundShowtimes = FXCollections.observableArrayList();
-        showtimesByMovie = FXCollections.observableArrayList();
         loadShowtimes();
     }
 
@@ -34,22 +32,13 @@ public class ShowtimeController {
         foundShowtimes.clear();
 
         for (Showtime showtime : showtimes) {
-            if (movie_name.equals(showtime.getShowtimes_movies_name())) {
+            if (showtime.getShowtimes_movies_name().contains(movie_name)
+                || showtime.getShowtimes_cinemas_name().contains(movie_name)) {
                 foundShowtimes.add(showtime);
             }
         }
 
         return foundShowtimes;
-    }
-
-    public ObservableList<Showtime> getListShowtimeByMovie(Integer movies_id) {
-        for (Showtime showtime : showtimes) {
-            if (movies_id.equals(showtime.getShowtimes_movies_id())) {
-                showtimesByMovie.add(showtime);
-            }
-        }
-
-        return showtimesByMovie;
     }
 
     public Integer addShowtime(Integer showtimes_movies_id,
@@ -112,10 +101,14 @@ public class ShowtimeController {
 
     public void updateShowtime(Showtime selectedShowtime,
                                String showtimes_time,
-                               String showtimes_date) {
+                               String showtimes_date,
+                               Integer showtimes_cinemas_id,
+                               String showtimes_cinemas_name) {
 
         selectedShowtime.setShowtimes_time(showtimes_time);
         selectedShowtime.setShowtimes_date(showtimes_date);
+        selectedShowtime.setShowtimes_cinemas_id(showtimes_cinemas_id);
+        selectedShowtime.setShowtimes_cinemas_name(showtimes_cinemas_name);
         Session session = factory.openSession();
         Transaction transaction = null;
         try {

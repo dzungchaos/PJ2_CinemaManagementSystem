@@ -1,9 +1,6 @@
 package boundary.ManagerShowtime;
 
-import controller.MovieController;
 import controller.ShowtimeController;
-import controller.UserController;
-import entity.Movie;
 import entity.Showtime;
 import entity.User;
 import javafx.event.ActionEvent;
@@ -65,12 +62,13 @@ public class ManagerShowtimeBoundary {
     }
 
     @FXML
-    public void doSearchShowtime(ActionEvent event) {
-        
+    public void doSearchShowtime(KeyEvent event) {
+        String movieNamePart = fieldFindShowtime.getText();
+        tableViewShowtime.setItems(showtimes.getListShowtime(movieNamePart));
     }
 
     @FXML
-    public void doUpdateShowtime(ActionEvent event) {
+    public void doUpdateShowtime(ActionEvent event) throws IOException {
         Showtime selectedShowtime = tableViewShowtime.getSelectionModel().getSelectedItem();
         if (selectedShowtime == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -81,6 +79,17 @@ public class ManagerShowtimeBoundary {
             return;
         }
 
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerShowtime/UpdateShowtimeBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("CẬP NHẬT SUẤT CHIẾU");
+        stage.setScene(new Scene(parent));
+        UpdateShowtimeBoundary boundary = loader.getController();
+        boundary.initData(selectedShowtime);
+        stage.initOwner((Stage) buttonUpdate.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
         showtimes.clearData();
         showtimes.loadShowtimes();
         tableViewShowtime.setItems(showtimes.getShowtimes());

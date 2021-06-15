@@ -132,7 +132,7 @@ public class HomepageStaffBoundary {
         stage.setScene(new Scene(parent));
         ManagerMovieBoundary boundary = loader.getController();
         boundary.initData(currentUser);
-        stage.initOwner((Stage) buttonModify.getScene().getWindow());
+        stage.initOwner((Stage) buttonMovie.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
         users.clearData();
