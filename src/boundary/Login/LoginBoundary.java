@@ -93,7 +93,9 @@ public class LoginBoundary {
 //        boundary.initData(loginUser);
         stage.initOwner((Stage) buttonSignIn.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
-        stage.show();
+        stage.showAndWait();
+        users.clearData();
+        users.loadUsers();
     }
 
     @FXML
@@ -112,11 +114,8 @@ public class LoginBoundary {
         stage.initOwner((Stage) buttonSignIn.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
-        System.out.println("1");
         users.clearData();
-        System.out.println("2");
         users.loadUsers();
-        System.out.println("3");
     }
 
     @FXML

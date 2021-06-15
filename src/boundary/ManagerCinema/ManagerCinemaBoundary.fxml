@@ -97,7 +97,7 @@
                     <PropertyValueFactory property="cinemas_manager" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="60" text="Khoá">
+            <TableColumn prefWidth="60" text="Mở khoá">
                 <cellValueFactory>
                     <PropertyValueFactory property="cinemas_isActive" />
                 </cellValueFactory>

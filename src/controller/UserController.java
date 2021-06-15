@@ -16,14 +16,27 @@ public class UserController {
     private static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     private ObservableList<User> users;
+    private ObservableList<User> foundUsers;
 
     public UserController() {
         users = FXCollections.observableArrayList();
+        foundUsers = FXCollections.observableArrayList();
         loadUsers();
     }
 
     public ObservableList<User> getUsers() {
         return users;
+    }
+
+    public ObservableList<User> getListUserByName(String userNamePart) {
+        foundUsers.clear();
+
+        for (User user : users) {
+            if (user.getUsers_name().contains(userNamePart) || user.getUsers_userName().contains(userNamePart))
+                foundUsers.add(user);
+        }
+
+        return foundUsers;
     }
 
     public Integer addUser(String users_userName,
@@ -175,17 +188,6 @@ public class UserController {
         return gotUser;
     }
 
-    public ObservableList<User> getListUserByName(String userNamePart) {
-        ObservableList<User> listUser = null;
-
-        for (User user : users) {
-            if (user.getUsers_name().contains(userNamePart))
-                listUser.add(user);
-        }
-
-        return listUser;
-    }
-
     public void lockUser(User selectedUser) {
         selectedUser.setUsers_isActive(false);
         Session session = factory.openSession();
@@ -241,7 +243,6 @@ public class UserController {
         } finally {
             session.close();
         }
-
         users.clear();
         loadUsers();
     }

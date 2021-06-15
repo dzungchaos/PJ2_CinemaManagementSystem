@@ -3,6 +3,7 @@ package boundary.Homepage;
 import boundary.ManagerCinema.ManagerCinemaBoundary;
 import boundary.ManagerMovie.ManagerMovieBoundary;
 import boundary.ManagerTicket.ManagerTicketBoundary;
+import boundary.ManagerUser.ManagerUserBoundary;
 import boundary.PersonalInfo.ChangePasswordBoundary;
 import boundary.PersonalInfo.ModifyPersonalInfoBoundary;
 import controller.UserController;
@@ -164,8 +165,20 @@ public class HomepageAdminBoundary {
     }
 
     @FXML
-    public void doShowUserManager(ActionEvent event) {
-
+    public void doShowUserManager(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerUser/ManagerUserBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("DANH SÁCH NGƯỜI DÙNG");
+        stage.setScene(new Scene(parent));
+        ManagerUserBoundary boundary = loader.getController();
+        boundary.initData(currentUser);
+        stage.initOwner((Stage) buttonCinema.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        users.clearData();
+        users.loadUsers();
     }
 
     @FXML
