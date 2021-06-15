@@ -18,11 +18,13 @@ public class TicketController {
     ObservableList<Ticket> tickets;
     ObservableList<Ticket> foundTickets;
     ObservableList<String> seatPaidByShowtimeID;
+    ObservableList<Ticket> listTicketsByUserID;
 
     public TicketController() {
         tickets = FXCollections.observableArrayList();
         foundTickets = FXCollections.observableArrayList();
         seatPaidByShowtimeID = FXCollections.observableArrayList();
+        listTicketsByUserID = FXCollections.observableArrayList();
         loadTickets();
     }
 
@@ -40,6 +42,16 @@ public class TicketController {
         }
 
         return foundTickets;
+    }
+
+    public ObservableList<Ticket> getListTicketsByUserID(Integer users_id) {
+        for (Ticket ticket : tickets) {
+            if (users_id.equals(ticket.getTickets_users_id())) {
+                listTicketsByUserID.add(ticket);
+            }
+        }
+
+        return listTicketsByUserID;
     }
 
     public Integer addTicket(Integer tickets_showtimes_id,

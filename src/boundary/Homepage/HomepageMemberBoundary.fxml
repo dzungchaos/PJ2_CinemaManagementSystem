@@ -27,6 +27,16 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button fx:id="buttonTicket" onAction="#doShowTicketManager" prefWidth="100.0" text="Vé xem">
+                    <tooltip>
+                        <Tooltip text="Quản lý vé xem phim" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/History24.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <VBox alignment="BOTTOM_CENTER" spacing="5.0" VBox.vgrow="ALWAYS">
                     <children>
                         <Button fx:id="buttonLogout" mnemonicParsing="false" prefWidth="100.0" text="Đăng xuất" textAlignment="CENTER"
