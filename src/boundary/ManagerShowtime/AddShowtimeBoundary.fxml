@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="250.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ManagerShowtime.AddShowtimeBoundary">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="THÊM SUẤT CHIẾU" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Giờ chiếu" GridPane.rowIndex="1" />
+      <Label text="Ngày chiếu" GridPane.rowIndex="2" />
+      <Label text="Phòng chiếu" GridPane.rowIndex="3" />
+      <ComboBox fx:id="boxTime" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="fieldDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <ComboBox fx:id="boxCinema" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="69.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+         <children>
+            <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#doAddShowtime" prefWidth="75.0" text="Thêm" />
+            <Button fx:id="buttonExit" mnemonicParsing="false" onAction="#closeWindow" prefWidth="75.0" text="Thoát" />
+         </children>
+      </HBox>
+
+   </children>
+</GridPane>

@@ -17,10 +17,14 @@ public class CinemaController {
 
     ObservableList<Cinema> cinemas;
     ObservableList<Cinema> foundCinemas;
+    ObservableList<Cinema> unlockCinemas;
+    ObservableList<String> unlockCinemasName;
 
     public CinemaController() {
         cinemas = FXCollections.observableArrayList();
         foundCinemas = FXCollections.observableArrayList();
+        unlockCinemas = FXCollections.observableArrayList();
+        unlockCinemasName = FXCollections.observableArrayList();
         loadCinemas();
     }
 
@@ -38,6 +42,26 @@ public class CinemaController {
         }
 
         return foundCinemas;
+    }
+
+    public ObservableList<Cinema> getUnlockCinema() {
+        for (Cinema cinema : cinemas) {
+            if (cinema.getCinemas_isActive()) {
+                unlockCinemas.add(cinema);
+            }
+        }
+
+        return unlockCinemas;
+    }
+
+    public ObservableList<String> getUnlockCinemasName() {
+        for (Cinema cinema : cinemas) {
+            if (cinema.getCinemas_isActive()) {
+                unlockCinemasName.add(cinema.getCinemas_name());
+            }
+        }
+
+        return unlockCinemasName;
     }
 
     public Integer addCinema(String cinemas_name,
@@ -103,6 +127,28 @@ public class CinemaController {
                 gotCinema = cinema;
 
         return gotCinema;
+    }
+
+    public Boolean checkDuplicated(String cinemas_name) {
+        for (Cinema cinema : cinemas) {
+            if (cinemas_name.equals(cinema.getCinemas_name())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Integer getCinemaIDByName(String cinemas_name) {
+        Integer cinemas_id = null;
+
+        for (Cinema cinema : cinemas) {
+            if (cinemas_name.equals(cinema.getCinemas_name())) {
+                cinemas_id = cinema.getCinemas_id();
+            }
+        }
+
+        return cinemas_id;
     }
 
     public void loadCinemas() {
@@ -181,18 +227,6 @@ public class CinemaController {
 
         cinemas.clear();
         loadCinemas();
-    }
-
-    public ObservableList<Cinema> getUnlockCinema() {
-        ObservableList<Cinema> unlockCinemas = null;
-
-        for (Cinema cinema : cinemas) {
-            if (cinema.getCinemas_isActive()) {
-                unlockCinemas.add(cinema);
-            }
-        }
-
-        return unlockCinemas;
     }
 
     public void clearData() {

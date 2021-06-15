@@ -1,5 +1,7 @@
 package boundary.ManagerMovie;
 
+import boundary.ManagerShowtime.AddShowtimeBoundary;
+import boundary.ManagerShowtime.ManagerShowtimeBoundary;
 import controller.MovieController;
 import entity.Movie;
 import entity.User;
@@ -40,6 +42,8 @@ public class ManagerMovieBoundary {
     public Button buttonShowDetail;
     @FXML
     public Button buttonBuyTicket;
+    @FXML
+    public Button buttonAddShowtime;
     @FXML
     private MovieController movies;
     @FXML
@@ -212,7 +216,47 @@ public class ManagerMovieBoundary {
     }
 
     @FXML
-    public void doManageShowtime(ActionEvent event) {
+    public void doManageShowtime(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerShowtime/ManagerShowtimeBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("DANH SÁCH SUẤT CHIẾU");
+        stage.setScene(new Scene(parent));
+        ManagerShowtimeBoundary boundary = loader.getController();
+        boundary.initData(currentUser);
+        stage.initOwner((Stage) buttonShowtime.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        movies.clearData();
+        movies.loadMovies();
+        tableViewMovie.setItems(movies.getMovies());
+    }
 
+    public void doAddShowtime(ActionEvent event) throws IOException {
+        Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Chưa chọn phim");
+            alert.setHeaderText(null);
+            alert.setContentText("Bạn chưa chọn phim, hãy chọn một phim để tiến hành thêm suất chiếu");
+            alert.show();
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerShowtime/AddShowtimeBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("THÊM SUẤT CHIẾU");
+        stage.setScene(new Scene(parent));
+        AddShowtimeBoundary boundary = loader.getController();
+        boundary.initData(selectedMovie);
+        stage.initOwner((Stage) buttonAddShowtime.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        movies.clearData();
+        movies.loadMovies();
+        tableViewMovie.setItems(movies.getMovies());
     }
 }

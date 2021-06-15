@@ -16,14 +16,40 @@ public class ShowtimeController {
     private static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     ObservableList<Showtime> showtimes;
+    ObservableList<Showtime> foundShowtimes;
+    ObservableList<Showtime> showtimesByMovie;
 
     public ShowtimeController() {
         showtimes = FXCollections.observableArrayList();
+        foundShowtimes = FXCollections.observableArrayList();
+        showtimesByMovie = FXCollections.observableArrayList();
         loadShowtimes();
     }
 
     public ObservableList<Showtime> getShowtimes() {
         return showtimes;
+    }
+
+    public ObservableList<Showtime> getListShowtime(String movie_name) {
+        foundShowtimes.clear();
+
+        for (Showtime showtime : showtimes) {
+            if (movie_name.equals(showtime.getShowtimes_movies_name())) {
+                foundShowtimes.add(showtime);
+            }
+        }
+
+        return foundShowtimes;
+    }
+
+    public ObservableList<Showtime> getListShowtimeByMovie(Integer movies_id) {
+        for (Showtime showtime : showtimes) {
+            if (movies_id.equals(showtime.getShowtimes_movies_id())) {
+                showtimesByMovie.add(showtime);
+            }
+        }
+
+        return showtimesByMovie;
     }
 
     public Integer addShowtime(Integer showtimes_movies_id,
@@ -59,18 +85,6 @@ public class ShowtimeController {
         return showtimes_id;
     }
 
-    public ObservableList<Showtime> getListShowtime(String movieNamePart) {
-        ObservableList<Showtime> listShowtimes = null;
-
-        for (Showtime showtime : showtimes) {
-            if (showtime.getShowtimes_movies_name().contains(movieNamePart)) {
-                listShowtimes.add(showtime);
-            }
-        }
-
-        return listShowtimes;
-    }
-
     public Showtime getShowTime(Integer showtimes_id) {
         Showtime gotShowtime = null;
 
@@ -81,6 +95,19 @@ public class ShowtimeController {
         }
 
         return gotShowtime;
+    }
+
+    public Boolean checkDuplicated(Integer movies_id, Integer cinemas_id, String time, String date) {
+        for (Showtime showtime : showtimes) {
+            if (movies_id.equals(showtime.getShowtimes_movies_id()) &&
+                cinemas_id.equals(showtime.getShowtimes_cinemas_id()) &&
+                time.equals(showtime.getShowtimes_time()) &&
+                date.equals(showtime.getShowtimes_date())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void updateShowtime(Showtime selectedShowtime,
@@ -111,7 +138,7 @@ public class ShowtimeController {
         Session session = factory.openSession();
         try {
             List list = session.createQuery("FROM Showtime").list();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {
                 Showtime showtime = (Showtime) iterator.next();
                 showtimes.add(showtime);
             }
@@ -127,7 +154,7 @@ public class ShowtimeController {
         Session session = factory.openSession();
         try {
             List list = session.createQuery("FROM Showtime").list();
-            for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {
                 count++;
                 System.out.println(count);
                 Showtime showtime = (Showtime) iterator.next();

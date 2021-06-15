@@ -58,7 +58,7 @@ public class ManagerCinemaBoundary {
         loader.setLocation(getClass().getResource("/boundary/ManagerCinema/AddCinemaBoundary.fxml"));
         Parent parent = loader.load();
         Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle("CẬP NHẬT PHÒNG CHIẾU PHIM");
+        stage.setTitle("THÊM PHÒNG CHIẾU PHIM");
         stage.setScene(new Scene(parent));
         stage.initOwner((Stage) buttonAdd.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);

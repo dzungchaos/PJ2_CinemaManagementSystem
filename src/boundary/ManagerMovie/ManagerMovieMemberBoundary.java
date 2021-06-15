@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +22,8 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class ManagerMovieMemberBoundary {
+    @FXML
+    public Button buttonShowtime;
     private User currentUser;
 
     @FXML
@@ -84,5 +87,8 @@ public class ManagerMovieMemberBoundary {
             alert.show();
             return;
         }
+    }
+
+    public void doManageShowtime(ActionEvent event) {
     }
 }

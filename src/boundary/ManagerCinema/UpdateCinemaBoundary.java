@@ -30,6 +30,15 @@ public class UpdateCinemaBoundary {
         Integer cinemaSeats = Integer.valueOf(fieldSeatsCinema.getText());
         String cinemaManager = fieldManagerCinema.getText();
 
+        if (cinemas.checkDuplicated(cinemaName)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("THÔNG TIN KHÔNG HỢP LỆ");
+            alert.setHeaderText(null);
+            alert.setContentText("Tên phòng chiếu bị trùng với phòng chiếu khác, vui lòng nhập lại dữ liệu");
+            alert.show();
+            return;
+        }
+
         cinemas.updateCinema(selectedCinema, cinemaName, cinemaSeats, cinemaManager);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Cập nhật phòng chiếu thành công");

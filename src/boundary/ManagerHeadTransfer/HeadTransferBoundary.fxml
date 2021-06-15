@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="boundary.ManagerHeadTransfer.HeadTransferBoundary"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane alignment="CENTER" hgap="10" prefHeight="400.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ManagerHeadTransfer.HeadTransferBoundary">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label text="CHUYỂN NHƯỢNG CHỦ RẠP" GridPane.columnSpan="2">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Tên người nhận" GridPane.rowIndex="1" >
+         <tooltip>
+            <Tooltip text="Tên đăng nhập của người được chuyển nhượng quyền" />
+         </tooltip>
+      </Label>
+      <Label text="Tên đăng nhập" GridPane.rowIndex="2" />
+      <Label text="Mật khẩu" GridPane.rowIndex="3" />
+      <TextField fx:id="fieldReceiveUser" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="fieldUserName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <PasswordField fx:id="fieldPassword" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="86.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+         <children>
+            <Button fx:id="buttonOK" mnemonicParsing="false" prefWidth="75.0" text="OK" onAction="#doTransfer" />
+            <Button fx:id="buttonExit" mnemonicParsing="false" prefWidth="75.0" text="Thoát" onAction="#closeWindow" />
+         </children>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin>
+      </HBox>
+   </children>
+</GridPane>
