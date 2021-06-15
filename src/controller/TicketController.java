@@ -17,15 +17,29 @@ public class TicketController {
 
     ObservableList<Ticket> tickets;
     ObservableList<Ticket> foundTickets;
+    ObservableList<String> seatPaidByShowtimeID;
 
     public TicketController() {
         tickets = FXCollections.observableArrayList();
         foundTickets = FXCollections.observableArrayList();
+        seatPaidByShowtimeID = FXCollections.observableArrayList();
         loadTickets();
     }
 
     public ObservableList<Ticket> getTickets() {
         return tickets;
+    }
+
+    public ObservableList<Ticket> getListTicket(String movieNamePart) {
+        foundTickets.clear();
+
+        for (Ticket ticket : tickets) {
+            if (ticket.getTickets_movies_name().contains(movieNamePart)) {
+                foundTickets.add(ticket);
+            }
+        }
+
+        return foundTickets;
     }
 
     public Integer addTicket(Integer tickets_showtimes_id,
@@ -65,18 +79,6 @@ public class TicketController {
         }
 
         return tickets_id;
-    }
-
-    public ObservableList<Ticket> getListTicket(String movieNamePart) {
-        foundTickets.clear();
-
-        for (Ticket ticket : tickets) {
-            if (ticket.getTickets_movies_name().contains(movieNamePart)) {
-                foundTickets.add(ticket);
-            }
-        }
-
-        return foundTickets;
     }
 
     public Ticket getTicket(Integer tickets_id) {
@@ -132,6 +134,27 @@ public class TicketController {
         } finally {
             session.close();
         }
+    }
+
+    public Boolean isSeatBought(String seat, Integer showtimes_id) {
+        for (Ticket ticket : tickets) {
+            if (showtimes_id.equals(ticket.getTickets_showtimes_id())) {
+                if (seat.equals(ticket.getTickets_seats())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public ObservableList<String> getListBoughtSeatByShowtimeID(Integer showtimes_id) {
+        for (Ticket ticket : tickets) {
+            if (showtimes_id.equals(ticket.getTickets_showtimes_id())) {
+                seatPaidByShowtimeID.add(ticket.getTickets_seats());
+            }
+        }
+
+        return seatPaidByShowtimeID;
     }
 
     public void clearData() {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="500.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.BuyTicket.BuyTicketBoundary">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label text="ĐẶT VÉ XEM PHIM" GridPane.columnSpan="2">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Label text="Tên người đặt vé" GridPane.rowIndex="1" />
+      <Label text="Tên phim" GridPane.rowIndex="2" />
+      <Label text="Tên rạp" GridPane.rowIndex="3" />
+      <Label text="Giờ chiếu" GridPane.rowIndex="4" />
+      <Label text="Ngày chiếu" GridPane.rowIndex="5" />
+      <Label text="Ngày mua" GridPane.rowIndex="6" />
+      <Label text="Số ghế" GridPane.rowIndex="7" />
+      <Label fx:id="labelUserName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="labelMovieName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="labelCinemaName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="labelTime" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="labelDate" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="labelPurchasedDate" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <ComboBox fx:id="boxSeatRow" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <ComboBox fx:id="boxSeatColumn" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="40.0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+         <children>
+            <Button fx:id="buttonPay" mnemonicParsing="false" onAction="#doPayTicket" prefWidth="80.0" text="Thanh toán" />
+            <Button fx:id="buttonExit" mnemonicParsing="false" onAction="#closeWindow" prefWidth="80.0" text="Thoát" />
+         </children>
+         <GridPane.margin>
+            <Insets top="10.0" />
+         </GridPane.margin></HBox>
+      <Label text="Ghế đã được mua" GridPane.rowIndex="10" />
+      <Label fx:id="labelPaidSeat" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+   </children>
+</GridPane>

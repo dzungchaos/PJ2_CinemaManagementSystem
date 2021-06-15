@@ -2,7 +2,9 @@ package boundary.Pay;
 
 import boundary.Login.LoginBoundary;
 import controller.BankAccountController;
+import controller.TicketController;
 import entity.BankAccount;
+import entity.Showtime;
 import entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class PurchaseTicketBoundary {
+    private Showtime selectedShowtime;
+    private User currentUser;
+    private String purchaseDate;
+    private String orderSeat;
+    private TicketController tickets;
+
     @FXML
     public TextField fieldOwnerName;
 
@@ -28,27 +36,23 @@ public class PurchaseTicketBoundary {
     @FXML
     public Button buttonOK;
 
-    private User currentUser;
 
     public void initialize() {
         bankAccounts = new BankAccountController();
-
+        tickets = new TicketController();
     }
 
-    public void initData(User selectedUser) {
-        currentUser = selectedUser;
+    public void initData(User user, Showtime showtime, String purchase, String seat) {
+        currentUser = user;
+        selectedShowtime = showtime;
+        purchaseDate = purchase;
+        orderSeat = seat;
     }
 
     @FXML
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) buttonCANCEL.getScene().getWindow();
-        if (currentUser != null) {
-            System.out.println("Current User ID: " + currentUser.getUsers_id());
-            System.out.println("Current User Name:" + currentUser.getUsers_name());
-            System.out.println("Current User username: " + currentUser.getUsers_userName());
-            System.out.println("Current User permission: " + currentUser.getUsers_permission());
-        }
-        bankAccounts.clearData();
+        // bankAccounts.clearData();
         stage.close();
     }
 
@@ -69,6 +73,15 @@ public class PurchaseTicketBoundary {
         BankAccount bankAccount = bankAccounts.getBankAccount(ownerName, cardNumber);
         if (bankAccounts.checkBankAccountBalance(bankAccount)) {
             bankAccounts.subtractBankAccountBalance(bankAccount);
+            tickets.addTicket(selectedShowtime.getShowtimes_id(),
+                    currentUser.getUsers_id(),
+                    selectedShowtime.getShowtimes_movies_name(),
+                    selectedShowtime.getShowtimes_cinemas_name(),
+                    currentUser.getUsers_name(),
+                    selectedShowtime.getShowtimes_time(),
+                    selectedShowtime.getShowtimes_date(),
+                    orderSeat,
+                    purchaseDate);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Thanh toán thành công");
             alert.setHeaderText(null);

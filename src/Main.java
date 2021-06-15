@@ -1,6 +1,7 @@
 import controller.*;
 import entity.BankAccount;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,7 +34,9 @@ public class Main extends Application {
 //        movieController.listMovies();
 
 //        TicketController ticketController = new TicketController();
-//        ticketController.listTickets();
+//        // ticketController.listTickets();
+//        ObservableList<String> testString = ticketController.getListBoughtSeatByShowtimeID(5);
+//        System.out.println("Các ghế đã đặt: " + testString.toString());
 //
 //        ShowtimeController showtimeController = new ShowtimeController();
 //        showtimeController.listShowtimes();

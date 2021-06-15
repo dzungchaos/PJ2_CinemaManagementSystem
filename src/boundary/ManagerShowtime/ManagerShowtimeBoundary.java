@@ -1,5 +1,6 @@
 package boundary.ManagerShowtime;
 
+import boundary.BuyTicket.BuyTicketBoundary;
 import controller.ShowtimeController;
 import entity.Showtime;
 import entity.User;
@@ -47,7 +48,7 @@ public class ManagerShowtimeBoundary {
     }
 
     @FXML
-    public void doBuyTicket(ActionEvent event) {
+    public void doBuyTicket(ActionEvent event) throws IOException {
         Showtime selectedShowtime = tableViewShowtime.getSelectionModel().getSelectedItem();
         if (selectedShowtime == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -58,7 +59,20 @@ public class ManagerShowtimeBoundary {
             return;
         }
 
-
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/BuyTicket/BuyTicketBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("MUA VÉ");
+        stage.setScene(new Scene(parent));
+        BuyTicketBoundary boundary = loader.getController();
+        boundary.initData(currentUser, selectedShowtime);
+        stage.initOwner((Stage) buttonBuyTicket.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+        showtimes.clearData();
+        showtimes.loadShowtimes();
+        tableViewShowtime.setItems(showtimes.getShowtimes());
     }
 
     @FXML
