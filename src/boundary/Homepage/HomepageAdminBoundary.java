@@ -77,7 +77,6 @@ public class HomepageAdminBoundary {
 
     @FXML
     public void doLogOut(ActionEvent event) {
-        currentUser.setUsers_isOnline(false);
         Stage stage = (Stage) buttonLogout.getScene().getWindow();
         stage.close();
     }

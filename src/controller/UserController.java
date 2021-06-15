@@ -247,6 +247,18 @@ public class UserController {
         loadUsers();
     }
 
+    public User getHeadUser() {
+        User head = new User();
+
+        for (User user : users) {
+            if (user.getUsers_permission().equals("HEAD")) {
+                head = user;
+            }
+        }
+
+        return head;
+    }
+
     public void loadUsers() {
         Session session = factory.openSession();
         try {

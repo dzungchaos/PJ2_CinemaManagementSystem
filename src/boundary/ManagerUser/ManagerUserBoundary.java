@@ -37,6 +37,9 @@ public class ManagerUserBoundary {
 
     public void initData(User user) {
         currentUser = user;
+        System.out.println(currentUser.getUsers_userName());
+        System.out.println(currentUser.getUsers_name());
+        System.out.println(currentUser.getUsers_permission());
     }
 
     public void initialize() {
@@ -62,8 +65,8 @@ public class ManagerUserBoundary {
             return;
         }
 
-        if (currentUser.getUsers_permission().equals("ADMIN")) {
-            if (selectedUser.getUsers_permission().equals("HEAD") || selectedUser.getUsers_permission().equals("ADMIN")) {
+        if (currentUser.getUsers_permission().equals("HEAD")) {
+            if (selectedUser.getUsers_permission().equals("HEAD")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Người dùng không hợp lệ");
                 alert.setHeaderText(null);
@@ -71,8 +74,10 @@ public class ManagerUserBoundary {
                 alert.show();
                 return;
             }
-        } else if (currentUser.getUsers_permission().equals("HEAD")) {
-            if (selectedUser.getUsers_permission().equals("HEAD")) {
+        }
+
+        if (currentUser.getUsers_permission().equals("ADMIN")) {
+            if (selectedUser.getUsers_permission().equals("HEAD") || selectedUser.getUsers_permission().equals("ADMIN")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Người dùng không hợp lệ");
                 alert.setHeaderText(null);

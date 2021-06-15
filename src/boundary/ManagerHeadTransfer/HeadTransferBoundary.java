@@ -68,6 +68,7 @@ public class HeadTransferBoundary {
         alert.setTitle(null);
         alert.setContentText("Bạn vừa chọn " + selectedUser.getUsers_userName() + " để nhượng quyền chủ rạp. Nếu điều này được thực hiện, bạn sẽ trở thành một quản trị viên. Bạn có chắc chắn không?");
 
+        // User head = users.getHeadUser();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             users.changePermissionUser(selectedUser, "HEAD");
