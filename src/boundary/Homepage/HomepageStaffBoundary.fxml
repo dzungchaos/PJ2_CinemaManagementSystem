@@ -21,20 +21,29 @@
                     </graphic>
                 </Label>
                 <Button fx:id="buttonMovie" onAction="#showMovieManager" prefWidth="100.0" text="Phim">
+                    <tooltip>
+                        <Tooltip text="Quản lý phim" />
+                    </tooltip>
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/media/Movie24.gif" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="buttonTicket" prefWidth="100.0" text="Vé xem" onAction="#doShowTicketManager">
+                <Button fx:id="buttonTicket" onAction="#doShowTicketManager" prefWidth="100.0" text="Vé xem">
+                    <tooltip>
+                        <Tooltip text="Quản lý vé xem phim" />
+                    </tooltip>
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/History24.gif" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="buttonStatistic" prefWidth="100.0" text="Thống kê" onAction="#doShowStatisticManager">
+                <Button fx:id="buttonStatistic" onAction="#doShowStatisticManager" prefWidth="100.0" text="Thống kê">
+                    <tooltip>
+                        <Tooltip text="Thống kê doanh thu của rạp" />
+                    </tooltip>
                     <graphic>
                         <ImageView>
                             <Image url="@/toolbarButtonGraphics/general/Information24.gif" />

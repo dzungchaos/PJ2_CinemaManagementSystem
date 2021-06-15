@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="300.0" prefWidth="400.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ManagerCinema.AddCinemaBoundary">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <Label text="Tên phòng" GridPane.rowIndex="1" />
+        <Label text="Số ghế" GridPane.rowIndex="2" />
+        <Label text="Quản lý" GridPane.rowIndex="3" />
+        <TextField fx:id="fieldNameCinema" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="fieldSeatsCinema" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="fieldManagerCinema" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="THÊM PHÒNG CHIẾU" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+            <GridPane.margin>
+                <Insets bottom="10.0" />
+            </GridPane.margin></Label>
+        <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="115.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <children>
+                <Button fx:id="buttonAdd" mnemonicParsing="false" prefWidth="75.0" text="Thêm" onAction="#doAddCinema" />
+                <Button fx:id="buttonExit" mnemonicParsing="false" prefWidth="75.0" text="Thoát" onAction="#closeWindow" />
+            </children>
+            <padding>
+                <Insets top="10.0" />
+            </padding>
+        </HBox>
+    </children>
+</GridPane>

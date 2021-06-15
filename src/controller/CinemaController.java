@@ -16,14 +16,28 @@ public class CinemaController {
     private static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     ObservableList<Cinema> cinemas;
+    ObservableList<Cinema> foundCinemas;
 
     public CinemaController() {
         cinemas = FXCollections.observableArrayList();
+        foundCinemas = FXCollections.observableArrayList();
         loadCinemas();
     }
 
     public ObservableList<Cinema> getCinemas() {
         return cinemas;
+    }
+
+    public ObservableList<Cinema> getListCinema(String cinemaNamePart) {
+        foundCinemas.clear();
+
+        for (Cinema cinema : cinemas) {
+            if (cinema.getCinemas_name().contains(cinemaNamePart)) {
+                foundCinemas.add(cinema);
+            }
+        }
+
+        return foundCinemas;
     }
 
     public Integer addCinema(String cinemas_name,
@@ -52,18 +66,6 @@ public class CinemaController {
         }
 
         return cinemas_id;
-    }
-
-    public ObservableList<Cinema> getListCinema(String cinemaNamePart) {
-        ObservableList<Cinema> listCinemas = null;
-
-        for (Cinema cinema : cinemas) {
-            if (cinema.getCinemas_name().contains(cinemaNamePart)) {
-                listCinemas.add(cinema);
-            }
-        }
-
-        return listCinemas;
     }
 
     public void updateCinema(Cinema selectedCinema,

@@ -1,5 +1,6 @@
 package boundary.Login;
 
+import boundary.Homepage.HomepageAdminBoundary;
 import boundary.Homepage.HomepageMemberBoundary;
 import boundary.Homepage.HomepageStaffBoundary;
 import boundary.Pay.PurchaseTicketBoundary;
@@ -73,6 +74,10 @@ public class LoginBoundary {
         stage.setTitle(tittle);
         stage.setScene(new Scene(parent));
         switch (loc) {
+            case ADMIN_UI:
+                HomepageAdminBoundary boundaryAdmin = loader.getController();
+                boundaryAdmin.initData(loginUser);
+                break;
             case STAFF_UI:
                 HomepageStaffBoundary boundaryStaff = loader.getController();
                 boundaryStaff.initData(loginUser);

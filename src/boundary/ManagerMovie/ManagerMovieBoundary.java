@@ -37,6 +37,10 @@ public class ManagerMovieBoundary {
     @FXML
     public Button buttonAddMovie;
     @FXML
+    public Button buttonShowDetail;
+    @FXML
+    public Button buttonBuyTicket;
+    @FXML
     private MovieController movies;
     @FXML
     public GridPane moviePanel;
@@ -132,7 +136,7 @@ public class ManagerMovieBoundary {
         stage.setScene(new Scene(parent));
         UpdateMovieBoundary boundary = loader.getController();
         boundary.initData(selectedMovie);
-        stage.initOwner((Stage) buttonAddMovie.getScene().getWindow());
+        stage.initOwner((Stage) buttonUpdateMovie.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
         movies.clearData();

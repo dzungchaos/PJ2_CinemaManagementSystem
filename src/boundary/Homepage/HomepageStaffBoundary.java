@@ -26,6 +26,8 @@ public class HomepageStaffBoundary {
     public Button buttonTicket;
     @FXML
     public Button buttonStatistic;
+    @FXML
+    public Button buttonUser;
 
     private UserController users = new UserController();
 
@@ -143,7 +145,7 @@ public class HomepageStaffBoundary {
         loader.setLocation(getClass().getResource("/boundary/ManagerTicket/ManagerTicketBoundary.fxml"));
         Parent parent = loader.load();
         Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setTitle("DANH SÁCH PHIM");
+        stage.setTitle("DANH SÁCH VÉ");
         stage.setScene(new Scene(parent));
         ManagerTicketBoundary boundary = loader.getController();
         boundary.initData(currentUser);
