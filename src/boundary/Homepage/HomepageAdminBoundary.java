@@ -159,8 +159,16 @@ public class HomepageAdminBoundary {
     }
 
     @FXML
-    public void doShowStatisticManager(ActionEvent event) {
-
+    public void doShowStatisticManager(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/boundary/ManagerStatistic/ManagerStatisticBoundary.fxml"));
+        Parent parent = loader.load();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("THỐNG KÊ DOANH SỐ");
+        stage.setScene(new Scene(parent));
+        stage.initOwner((Stage) buttonStatistic.getScene().getWindow());
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
     }
 
     @FXML

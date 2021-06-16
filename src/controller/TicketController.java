@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Statistic;
 import entity.Ticket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import util.HibernateUtil;
 
 import java.util.Iterator;
@@ -19,12 +21,16 @@ public class TicketController {
     ObservableList<Ticket> foundTickets;
     ObservableList<String> seatPaidByShowtimeID;
     ObservableList<Ticket> listTicketsByUserID;
+    ObservableList<Ticket> listTicketsByPurchaseDate;
+    ObservableList<Statistic> statistics;
 
     public TicketController() {
         tickets = FXCollections.observableArrayList();
         foundTickets = FXCollections.observableArrayList();
         seatPaidByShowtimeID = FXCollections.observableArrayList();
         listTicketsByUserID = FXCollections.observableArrayList();
+        listTicketsByPurchaseDate = FXCollections.observableArrayList();
+        statistics = FXCollections.observableArrayList();
         loadTickets();
     }
 
@@ -53,6 +59,20 @@ public class TicketController {
 
         return listTicketsByUserID;
     }
+
+    public ObservableList<Ticket> getListTicketsByPurchaseDate(String purchasedDate) {
+        listTicketsByPurchaseDate.clear();
+
+        for (Ticket ticket : tickets) {
+            if (purchasedDate.equals(ticket.getTickets_purchasedDate())) {
+                listTicketsByPurchaseDate.add(ticket);
+            }
+        }
+
+        return  listTicketsByPurchaseDate;
+    }
+
+    public ObservableList<Statistic> getStatistics() {return statistics;}
 
     public Integer addTicket(Integer tickets_showtimes_id,
                              Integer tickets_users_id,

@@ -1,5 +1,6 @@
 import controller.*;
 import entity.BankAccount;
+import entity.Statistic;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -40,5 +41,15 @@ public class Main extends Application {
 //
 //        ShowtimeController showtimeController = new ShowtimeController();
 //        showtimeController.listShowtimes();
+
+//        StatisticController statisticController = new StatisticController();
+//        statisticController.loadStatistic("15-06-2021");
+//        statisticController.listStatistic("15-06-2021");
+
+//        StatisticController statisticController = new StatisticController();
+//        statisticController.loadStatisticByDate("15-06-2021");
+//        ObservableList<Statistic> statistics = statisticController.getListStatisticByPurchaseDate();
+//        System.out.println(statistics);
+//        statisticController.listStatisticByDate("15-06-2021");
     }
 }
