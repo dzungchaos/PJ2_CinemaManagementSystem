@@ -35,60 +35,6 @@ public class StatisticController {
         listStatisticByPurchaseDate = FXCollections.observableArrayList();
     }
 
-//    public void loadStatistic(String tickets_purchasedDate) {
-//        String sql = "SELECT  tickets_movies_name AS Phim, COUNT(tickets_id) AS LuotXem, COUNT(tickets_id) * 40000 AS DoanhSo\n" +
-//                "FROM PJ2_tickets\n" +
-//                "WHERE tickets_purchasedDate = :tickets_purchasedDate\n" +
-//                "GROUP BY tickets_movies_name";
-//
-//        Session session = factory.openSession();
-//        Transaction transaction = null;
-//        try {
-//            transaction = session.beginTransaction();
-//            Query query = session.createQuery(sql);
-//            query.setParameter("tickets_purchasedDate", tickets_purchasedDate);
-//            List result = query.list();
-//            for (Iterator iterator = result.iterator(); iterator.hasNext();) {
-//                Statistic statistic = (Statistic) iterator.next();
-//                statistics.add(statistic);
-//            }
-//        } catch (HibernateException e) {
-//            if (transaction != null)
-//                transaction.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//    }
-//
-//    public void listStatistic(String tickets_purchasedDate) {
-//        String sql = "SELECT  tickets_movies_name AS Phim, COUNT(tickets_id) AS LuotXem, COUNT(tickets_id) * 40000 AS DoanhSo\n" +
-//                "FROM PJ2_tickets\n" +
-//                "WHERE tickets_purchasedDate = :tickets_purchasedDate\n" +
-//                "GROUP BY tickets_movies_name";
-//
-//        Session session = factory.openSession();
-//        Transaction transaction = null;
-//        try {
-//            transaction = session.beginTransaction();
-//            Query query = session.createQuery(sql);
-//            query.setParameter("tickets_purchasedDate", tickets_purchasedDate);
-//            List result = query.list();
-//            for (Iterator iterator = result.iterator(); iterator.hasNext();) {
-//                Statistic statistic = (Statistic) iterator.next();
-//                System.out.println("Phim: " + statistic.getMovies_name());
-//                System.out.println("Lượt xem: " + statistic.getViewCount().toString());
-//                System.out.println("Doanh số: " + statistic.getTurnover().toString());
-//            }
-//        } catch (HibernateException e) {
-//            if (transaction != null)
-//                transaction.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            session.close();
-//        }
-//    }
-
     public ObservableList<Statistic> getListStatisticByPurchaseDate() {
         return listStatisticByPurchaseDate;
     }
@@ -178,5 +124,15 @@ public class StatisticController {
                 }
             }
         }
+    }
+
+    public Integer getTotalTurnover(ObservableList<Statistic> statisticsList) {
+        Integer totalTurnover = 0;
+
+        for (Statistic statistic : statisticsList) {
+            totalTurnover += statistic.getTurnover();
+        }
+
+        return totalTurnover;
     }
 }

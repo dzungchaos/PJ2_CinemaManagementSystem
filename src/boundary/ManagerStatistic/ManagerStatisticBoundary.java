@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 
@@ -22,6 +23,8 @@ public class ManagerStatisticBoundary {
     public DatePicker datePickerPurchasedDate;
     @FXML
     public Button buttonGetStatistic;
+    @FXML
+    public Label labelTotal;
 
     private StatisticController statisticController = new StatisticController();
     private ObservableList<Statistic>  statistics = FXCollections.observableArrayList();
@@ -43,5 +46,7 @@ public class ManagerStatisticBoundary {
         statisticController.loadStatisticByDate(purchasedDate);
         statistics = statisticController.getListStatisticByPurchaseDate();
         tableViewStatistic.setItems(statistics);
+        Integer totalTurnover = statisticController.getTotalTurnover(statistics);
+        labelTotal.setText(totalTurnover.toString());
     }
 }
