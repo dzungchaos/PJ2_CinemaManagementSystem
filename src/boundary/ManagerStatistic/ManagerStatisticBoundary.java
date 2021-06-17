@@ -6,13 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-
-import java.time.format.DateTimeFormatter;
 
 public class ManagerStatisticBoundary {
     @FXML
@@ -20,11 +15,13 @@ public class ManagerStatisticBoundary {
     @FXML
     public GridPane statisticPanel;
     @FXML
-    public DatePicker datePickerPurchasedDate;
-    @FXML
     public Button buttonGetStatistic;
     @FXML
     public Label labelTotal;
+    @FXML
+    public TextField fieldPurchasedDate;
+    @FXML
+    public Button buttonExportStatistic;
 
     private StatisticController statisticController = new StatisticController();
     private ObservableList<Statistic>  statistics = FXCollections.observableArrayList();
@@ -41,12 +38,17 @@ public class ManagerStatisticBoundary {
     @FXML
     public void doGetStatistic(ActionEvent event) {
         tableViewStatistic.getItems().clear();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String purchasedDate = dtf.format(datePickerPurchasedDate.getValue());
+        String purchasedDate = fieldPurchasedDate.getText();
         statisticController.loadStatisticByDate(purchasedDate);
         statistics = statisticController.getListStatisticByPurchaseDate();
+        fieldPurchasedDate.clear();
         tableViewStatistic.setItems(statistics);
         Integer totalTurnover = statisticController.getTotalTurnover(statistics);
         labelTotal.setText(totalTurnover.toString());
+    }
+
+    @FXML
+    public void doExportStatistic(ActionEvent event) {
+
     }
 }

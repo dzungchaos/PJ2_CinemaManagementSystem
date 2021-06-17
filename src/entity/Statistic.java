@@ -1,6 +1,7 @@
 package entity;
 
 public class Statistic {
+    private String purchasedDate;
     private String movies_name;
     private Integer viewCount; // Số vé được mua
     private Integer turnover; // doanh số
@@ -9,7 +10,8 @@ public class Statistic {
 
     }
 
-    public Statistic(String movies_name, Integer viewCount, Integer turnover) {
+    public Statistic(String purchasedDate, String movies_name, Integer viewCount, Integer turnover) {
+        this.purchasedDate = purchasedDate;
         this.movies_name = movies_name;
         this.viewCount = viewCount;
         this.turnover = turnover;
@@ -39,10 +41,19 @@ public class Statistic {
         this.turnover = turnover;
     }
 
+    public String getPurchasedDate() {
+        return purchasedDate;
+    }
+
+    public void setPurchasedDate(String purchasedDate) {
+        this.purchasedDate = purchasedDate;
+    }
+
     @Override
     public String toString() {
         return "Statistic{" +
-                "movies_name='" + movies_name + '\'' +
+                "purchasedDate='" + purchasedDate + '\'' +
+                ", movies_name='" + movies_name + '\'' +
                 ", viewCount=" + viewCount +
                 ", turnover=" + turnover +
                 '}';

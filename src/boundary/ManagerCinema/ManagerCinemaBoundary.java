@@ -20,6 +20,10 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class ManagerCinemaBoundary {
+    @FXML
+    public Button buttonImportCinema;
+    @FXML
+    public Button buttonExportCinema;
     private CinemaController cinemas;
 
     private User currentUser;
@@ -161,5 +165,13 @@ public class ManagerCinemaBoundary {
         tableViewCinema.setItems(cinemas.getCinemas());
     }
 
+    @FXML
+    public void doImportCinema(ActionEvent event) {
 
+    }
+
+    @FXML
+    public void doExportCinema(ActionEvent event) {
+
+    }
 }

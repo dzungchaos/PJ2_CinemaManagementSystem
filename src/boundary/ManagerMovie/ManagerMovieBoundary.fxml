@@ -84,6 +84,26 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button fx:id="buttonImportMovie" onAction="#doImportMovie">
+                    <tooltip>
+                        <Tooltip text="Nạp dữ liệu từ file Excel" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/Import16.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="buttonExportMovie" onAction="#doExportMovie">
+                    <tooltip>
+                        <Tooltip text="In dữ liệu ra file excel" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView>
+                            <Image url="@/toolbarButtonGraphics/general/Export16.gif" />
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </HBox>
         <HBox>

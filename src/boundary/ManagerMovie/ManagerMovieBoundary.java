@@ -45,6 +45,10 @@ public class ManagerMovieBoundary {
     @FXML
     public Button buttonAddShowtime;
     @FXML
+    public Button buttonImportMovie;
+    @FXML
+    public Button buttonExportMovie;
+    @FXML
     private MovieController movies;
     @FXML
     public GridPane moviePanel;
@@ -255,5 +259,15 @@ public class ManagerMovieBoundary {
         movies.clearData();
         movies.loadMovies();
         tableViewMovie.setItems(movies.getMovies());
+    }
+
+    @FXML
+    public void doImportMovie(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void doExportMovie(ActionEvent event) {
+
     }
 }

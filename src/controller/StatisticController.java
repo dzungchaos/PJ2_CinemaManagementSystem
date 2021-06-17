@@ -46,17 +46,18 @@ public class StatisticController {
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=PJ2_CinemaDB;user=sa;password=1234");
 
-            String sql = "SELECT\ttickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
+            String sql = "SELECT\ttickets_purchasedDate AS purchasedDate, tickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
                     "FROM\tPJ2_tickets\n" +
-                    "WHERE\ttickets_purchasedDate = ?\n" +
-                    "GROUP BY tickets_movies_name";
+                    "WHERE\ttickets_purchasedDate like ?\n" +
+                    "GROUP BY tickets_movies_name, tickets_purchasedDate";
             // 15-06-2021
             statement = connection.prepareCall(sql);
-            statement.setString(1, purchasedDate);
+            statement.setString(1, "%" + purchasedDate);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Statistic statistic = new Statistic(resultSet.getString("movies_name"),
+                Statistic statistic = new Statistic(resultSet.getString("purchasedDate"),
+                        resultSet.getString("movies_name"),
                         resultSet.getInt("viewCount"),
                         resultSet.getInt("turnover"));
                 listStatisticByPurchaseDate.add(statistic);
@@ -88,20 +89,22 @@ public class StatisticController {
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=PJ2_CinemaDB;user=sa;password=1234");
 
-            String sql = "SELECT\ttickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
+            String sql = "SELECT\ttickets_purchasedDate AS purchasedDate, tickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
                     "FROM\tPJ2_tickets\n" +
-                    "WHERE\ttickets_purchasedDate = ?\n" +
-                    "GROUP BY tickets_movies_name";
+                    "WHERE\ttickets_purchasedDate like ?\n" +
+                    "GROUP BY tickets_movies_name, tickets_purchasedDate";
             // 15-06-2021
             statement = connection.prepareCall(sql);
-            statement.setString(1, purchasedDate);
+            statement.setString(1, "%" + purchasedDate);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Statistic statistic = new Statistic(resultSet.getString("movies_name"),
+                Statistic statistic = new Statistic(resultSet.getString("purchasedDate"),
+                        resultSet.getString("movies_name"),
                         resultSet.getInt("viewCount"),
                         resultSet.getInt("turnover"));
                 // listStatisticByPurchaseDate.add(statistic);
+                System.out.println("Ngày: " + statistic.getPurchasedDate());
                 System.out.println("Phim: " + statistic.getMovies_name());
                 System.out.println("Lượt xem: " + statistic.getViewCount().toString());
                 System.out.println("Doanh thu: " + statistic.getTurnover().toString());

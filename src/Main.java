@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("boundary/Login/LoginBoundary.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("RẠP CHIẾU PHIM ANH SÁU");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
@@ -46,9 +46,10 @@ public class Main extends Application {
 //        statisticController.listStatistic("15-06-2021");
 
 //        StatisticController statisticController = new StatisticController();
-//        statisticController.loadStatisticByDate("15-06-2021");
+//        statisticController.loadStatisticByDate("06-2021");
 //        ObservableList<Statistic> statistics = statisticController.getListStatisticByPurchaseDate();
 //        System.out.println(statistics);
-//        statisticController.listStatisticByDate("15-06-2021");
+//        statisticController.listStatisticByDate("06-2021");
+//        System.out.println("Tổng du thoanh:" + statisticController.getTotalTurnover(statistics));
     }
 }

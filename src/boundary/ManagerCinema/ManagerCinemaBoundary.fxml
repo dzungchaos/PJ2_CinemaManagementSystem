@@ -8,7 +8,7 @@
 
 <GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ManagerCinema.ManagerCinemaBoundary">
 
-    <HBox alignment="CENTER" spacing="140.0" GridPane.rowIndex="0">
+    <HBox alignment="CENTER" spacing="120.0" GridPane.rowIndex="0">
         <children>
             <HBox>
                 <children>
@@ -49,6 +49,26 @@
                         <graphic>
                             <ImageView>
                                 <Image url="@/toolbarButtonGraphics/general/ZoomIn16.gif" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="buttonImportCinema" onAction="#doImportCinema">
+                        <tooltip>
+                            <Tooltip text="Nạp dữ liệu từ file Excel" />
+                        </tooltip>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/toolbarButtonGraphics/general/Import16.gif" />
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="buttonExportCinema" onAction="#doExportCinema">
+                        <tooltip>
+                            <Tooltip text="In dữ liệu ra file excel" />
+                        </tooltip>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/toolbarButtonGraphics/general/Export16.gif" />
                             </ImageView>
                         </graphic>
                     </Button>
