@@ -11,5 +11,7 @@
     <orderEntry type="library" name="jlfgr-1_0" level="application" />
     <orderEntry type="library" name="mssql-jdbc-9.2.1.jre8" level="application" />
     <orderEntry type="library" name="poi-5.0" level="application" />
+    <orderEntry type="library" name="ooxml-lib" level="application" />
+    <orderEntry type="library" name="poilib" level="application" />
   </component>
 </module>

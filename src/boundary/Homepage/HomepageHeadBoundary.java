@@ -3,6 +3,7 @@ package boundary.Homepage;
 import boundary.ManagerCinema.ManagerCinemaBoundary;
 import boundary.ManagerHeadTransfer.HeadTransferBoundary;
 import boundary.ManagerMovie.ManagerMovieBoundary;
+import boundary.ManagerStatistic.ManagerStatisticBoundary;
 import boundary.ManagerTicket.ManagerTicketBoundary;
 import boundary.ManagerUser.ManagerUserBoundary;
 import boundary.PersonalInfo.ChangePasswordBoundary;
@@ -169,6 +170,8 @@ public class HomepageHeadBoundary {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle("THỐNG KÊ DOANH SỐ");
         stage.setScene(new Scene(parent));
+        ManagerStatisticBoundary boundary = loader.getController();
+        boundary.initData(currentUser);
         stage.initOwner((Stage) buttonStatistic.getScene().getWindow());
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();

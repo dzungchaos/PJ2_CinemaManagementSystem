@@ -2,8 +2,16 @@ package controller;
 
 import entity.Statistic;
 import entity.Ticket;
+import entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +19,11 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import util.HibernateUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -137,5 +150,105 @@ public class StatisticController {
         }
 
         return totalTurnover;
+    }
+
+    public void saveStatisticToExcelFile(ObservableList<Statistic> listStatistics, File fileStatistics, User currentUser, String purchasedDate, Integer totalTurnover) throws IOException {
+        UserController userController = new UserController();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Thống kê");
+
+        int rownum = 0;
+        Cell cell;
+        Row row;
+
+        XSSFCellStyle style = createStyleForTitle(workbook);
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("RẠP CHIẾU PHIM ANH SÁU");
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Chủ rạp: " + userController.getHeadUser().getUsers_name());
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Địa chỉ: 235 đường Lương Ngọc Quyến, P.Hoàng Văn Thụ, TP.Thái Nguyên, T.Thái Nguyên");
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Người làm thống kê: " + currentUser.getUsers_name());
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Ngày làm thống kê: " + dtf.format(LocalDate.now()));
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("THỐNG KÊ DOANH SỐ RẠP CHIẾU " + purchasedDate);
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Tổng doanh thu: " + totalTurnover.toString());
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Ngày");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Phim");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Lượt xem");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Doanh thu");
+        cell.setCellStyle(style);
+
+        for (Statistic statistic : listStatistics) {
+            rownum++;
+            row = sheet.createRow(rownum);
+
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(statistic.getPurchasedDate());
+
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(statistic.getMovies_name());
+
+            cell = row.createCell(2, CellType.NUMERIC);
+            cell.setCellValue(statistic.getViewCount());
+
+            cell = row.createCell(3, CellType.NUMERIC);
+            cell.setCellValue(statistic.getTurnover());
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(fileStatistics);
+        workbook.write(outputStream);
+    }
+
+    private XSSFCellStyle createStyleForTitle(XSSFWorkbook workbook) {
+        XSSFFont font = workbook.createFont();
+        font.setBold(true);
+        XSSFCellStyle style =workbook.createCellStyle();
+        style.setFont(font);
+        return style;
     }
 }
