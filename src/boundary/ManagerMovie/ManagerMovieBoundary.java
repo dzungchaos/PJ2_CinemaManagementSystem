@@ -5,6 +5,7 @@ import boundary.ManagerShowtime.ManagerShowtimeBoundary;
 import controller.MovieController;
 import entity.Movie;
 import entity.User;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 
 public class ManagerMovieBoundary {
@@ -262,7 +265,25 @@ public class ManagerMovieBoundary {
     }
 
     @FXML
-    public void doImportMovie(ActionEvent event) {
+    public void doImportMovie(ActionEvent event) throws IOException {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Nhập danh sách phim");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel", "*.xlsx"),
+                new FileChooser.ExtensionFilter("All files", "*.*")
+        );
+
+        File fileOpen = chooser.showOpenDialog(buttonImportMovie.getScene().getWindow());
+
+        if (fileOpen != null) {
+            System.out.println(fileOpen.getPath());
+            movies.loadMoviesFromExcelFile(fileOpen);
+            ObservableList<Movie> listNewMovies = movies.getNewMovies();
+            movies.listNewMovies(listNewMovies);
+            movies.addNewMoviesToMoviesList(listNewMovies);
+        } else {
+            System.out.println("Chooser was cancelled");
+        }
 
     }
 

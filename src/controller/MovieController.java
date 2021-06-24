@@ -3,12 +3,19 @@ package controller;
 import entity.Movie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,15 +26,20 @@ public class MovieController {
     ObservableList<Movie> unlockMovies;
     ObservableList<Movie> foundMovies;
     ObservableList<Movie> foundAndUnlockMovies;
+    ObservableList<Movie> newMovies;
 
     public MovieController() {
         movies = FXCollections.observableArrayList();
         unlockMovies = FXCollections.observableArrayList();
         foundMovies = FXCollections.observableArrayList();
         foundAndUnlockMovies = FXCollections.observableArrayList();
+        newMovies = FXCollections.observableArrayList();
         loadMovies();
         loadUnlockMovies();
+    }
 
+    public ObservableList<Movie> getNewMovies() {
+        return newMovies;
     }
 
     public ObservableList<Movie> getMovies() {
@@ -243,6 +255,117 @@ public class MovieController {
             if (movie.getMovies_isActive()) {
                 unlockMovies.add(movie);
             }
+        }
+    }
+
+    public void addNewMoviesToMoviesList(ObservableList<Movie> listNewMovies) {
+        for (Movie movie : listNewMovies) {
+            addMovie("",
+                    movie.getMovies_name(),
+                    movie.getMovies_description(),
+                    movie.getMovies_director(),
+                    movie.getMovies_actors(),
+                    movie.getMovies_genres(),
+                    movie.getMovies_duration(),
+                    movie.getMovies_airDate(),
+                    movie.getMovies_showtimes());
+        }
+    }
+
+    public void loadMoviesFromExcelFile(File fileMovies) throws IOException {
+        newMovies.clear();
+
+        FileInputStream inputStream = new FileInputStream(fileMovies);
+
+        XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+
+        XSSFSheet sheet = workbook.getSheetAt(0);
+
+        Iterator<Row> rowIterator = sheet.iterator();
+
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+
+            if (row.getRowNum() == 0)
+                continue;
+
+            Iterator<Cell> cellIterator = row.cellIterator();
+
+            Movie movie = new Movie();
+            while (cellIterator.hasNext()) {
+
+                Cell cell = cellIterator.next();
+                Object cellValue = getCellValue(cell);
+
+                if (cellValue == null || cellValue.toString().isEmpty())
+                    continue;
+
+                int columnIndex = cell.getColumnIndex();
+                switch (columnIndex) {
+                    case 0:
+                        movie.setMovies_name((String) getCellValue(cell));
+                        break;
+                    case 1:
+                        movie.setMovies_description((String) getCellValue(cell));
+                        break;
+                    case 2:
+                        movie.setMovies_director((String) getCellValue(cell));
+                        break;
+                    case 3:
+                        movie.setMovies_actors((String) getCellValue(cell));
+                        break;
+                    case 4:
+                        movie.setMovies_genres((String) getCellValue(cell));
+                        break;
+                    case 5:
+                        movie.setMovies_duration(BigDecimal.valueOf((double) cellValue).intValue());
+                        break;
+                    case 6:
+                        movie.setMovies_airDate((String) getCellValue(cell));
+                        break;
+                    case 7:
+                        movie.setMovies_showtimes((String) getCellValue(cell));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            newMovies.add(movie);
+        }
+
+        workbook.close();
+        inputStream.close();
+    }
+
+    private Object getCellValue(Cell cell) {
+        CellType cellType = cell.getCellType();
+        Object cellValue = null;
+
+        switch (cellType) {
+            case BOOLEAN:
+                cellValue = cell.getBooleanCellValue();
+                break;
+            case FORMULA:
+                Workbook workbook = cell.getSheet().getWorkbook();
+                FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+                cellValue = evaluator.evaluate(cell).getNumberValue();
+                break;
+            case NUMERIC:
+                cellValue = cell.getNumericCellValue();
+                break;
+            case STRING:
+                cellValue = cell.getStringCellValue();
+                break;
+            default:
+                break;
+        }
+
+        return cellValue;
+    }
+
+    public void listNewMovies(ObservableList<Movie> listNewMovies) {
+        for (Movie movie : listNewMovies) {
+            System.out.println(movie.toString());
         }
     }
 
