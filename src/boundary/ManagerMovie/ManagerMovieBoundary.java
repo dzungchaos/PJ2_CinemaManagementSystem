@@ -58,6 +58,8 @@ public class ManagerMovieBoundary {
 
     private User currentUser;
 
+    String movieNamePart;
+
     public void initData(User user) {
         currentUser = user;
     }
@@ -69,7 +71,7 @@ public class ManagerMovieBoundary {
 
     @FXML
     public void doSearchMovie(KeyEvent keyEvent) {
-        String movieNamePart = fieldFindMovie.getText();
+        movieNamePart = fieldFindMovie.getText();
         tableViewMovie.setItems(movies.getListMovie(movieNamePart));
     }
 
@@ -219,7 +221,8 @@ public class ManagerMovieBoundary {
 
     @FXML
     public void enableButton(MouseEvent event) {
-
+        System.out.println("Table clicked!!!");
+        System.out.println();
     }
 
     @FXML
@@ -237,6 +240,7 @@ public class ManagerMovieBoundary {
         stage.showAndWait();
     }
 
+    @FXML
     public void doAddShowtime(ActionEvent event) throws IOException {
         Movie selectedMovie= tableViewMovie.getSelectionModel().getSelectedItem();
         if (selectedMovie == null) {
@@ -288,7 +292,22 @@ public class ManagerMovieBoundary {
     }
 
     @FXML
-    public void doExportMovie(ActionEvent event) {
+    public void doExportMovie(ActionEvent event) throws IOException {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Xuất danh sách phim");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel", "*.xlsx"),
+                new FileChooser.ExtensionFilter("All files", "*.*")
+        );
 
+        File fileSave = chooser.showSaveDialog(buttonExportMovie.getScene().getWindow());
+
+        if (fileSave != null) {
+            ObservableList<Movie> listMovies = movies.getListMovie(movieNamePart);
+            movies.saveMoviesToExcelFile(listMovies, fileSave);
+            System.out.println("Saved file: " + fileSave.getPath());
+        } else {
+            System.out.println("Chooser was cancelled");
+        }
     }
 }

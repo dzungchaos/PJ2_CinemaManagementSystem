@@ -4,6 +4,8 @@ import entity.Movie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.HibernateException;
@@ -14,6 +16,7 @@ import util.HibernateUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -337,6 +340,88 @@ public class MovieController {
         inputStream.close();
     }
 
+    public void saveMoviesToExcelFile(ObservableList<Movie> listMovies, File fileMovies) throws IOException {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Danh sách phim đang chiếu");
+
+        int rownum = 0;
+        Cell cell;
+        Row row;
+
+        XSSFCellStyle style = createStyleForTitle(workbook);
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("DANH SÁCH CÁC PHIM ĐANG CHIẾU TẠI RẠP ANH SÁU");
+        cell.setCellStyle(style);
+        rownum += 2;
+
+        row = sheet.createRow(rownum);
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Tên phim");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Mô tả");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Đạo diễn");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Diễn viên");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("Thể loại");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(5, CellType.STRING);
+        cell.setCellValue("Thời lượng");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(6, CellType.STRING);
+        cell.setCellValue("Công chiếu");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(7, CellType.STRING);
+        cell.setCellValue("Giờ chiếu");
+        cell.setCellStyle(style);
+
+        for (Movie movie : listMovies) {
+            rownum++;
+            row = sheet.createRow(rownum);
+
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(movie.getMovies_name());
+
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(movie.getMovies_description());
+
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue(movie.getMovies_director());
+
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue(movie.getMovies_actors());
+
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue(movie.getMovies_genres());
+
+            cell = row.createCell(5, CellType.NUMERIC);
+            cell.setCellValue(movie.getMovies_duration());
+
+            cell = row.createCell(6, CellType.STRING);
+            cell.setCellValue(movie.getMovies_airDate());
+
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue(movie.getMovies_showtimes());
+        }
+
+        FileOutputStream outputStream = new FileOutputStream(fileMovies);
+        workbook.write(outputStream);
+    }
+
     private Object getCellValue(Cell cell) {
         CellType cellType = cell.getCellType();
         Object cellValue = null;
@@ -361,6 +446,14 @@ public class MovieController {
         }
 
         return cellValue;
+    }
+
+    private XSSFCellStyle createStyleForTitle(XSSFWorkbook workbook) {
+        XSSFFont font = workbook.createFont();
+        font.setBold(true);
+        XSSFCellStyle style =workbook.createCellStyle();
+        style.setFont(font);
+        return style;
     }
 
     public void listNewMovies(ObservableList<Movie> listNewMovies) {
