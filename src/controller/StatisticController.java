@@ -59,17 +59,17 @@ public class StatisticController {
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=PJ2_CinemaDB;user=sa;password=1234");
 
-            String sql = "SELECT\ttickets_purchasedDate AS purchasedDate, tickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
+            String sql = "SELECT\ttickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
                     "FROM\tPJ2_tickets\n" +
                     "WHERE\ttickets_purchasedDate like ?\n" +
-                    "GROUP BY tickets_movies_name, tickets_purchasedDate";
+                    "GROUP BY tickets_movies_name";
             // 15-06-2021
             statement = connection.prepareCall(sql);
             statement.setString(1, "%" + purchasedDate);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Statistic statistic = new Statistic(resultSet.getString("purchasedDate"),
+                Statistic statistic = new Statistic(
                         resultSet.getString("movies_name"),
                         resultSet.getInt("viewCount"),
                         resultSet.getInt("turnover"));
@@ -102,22 +102,21 @@ public class StatisticController {
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=PJ2_CinemaDB;user=sa;password=1234");
 
-            String sql = "SELECT\ttickets_purchasedDate AS purchasedDate, tickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
+            String sql = "SELECT\ttickets_movies_name AS movies_name, COUNT(tickets_id) AS viewCount, COUNT(tickets_id) * 40000 AS turnover\n" +
                     "FROM\tPJ2_tickets\n" +
                     "WHERE\ttickets_purchasedDate like ?\n" +
-                    "GROUP BY tickets_movies_name, tickets_purchasedDate";
+                    "GROUP BY tickets_movies_name";
             // 15-06-2021
             statement = connection.prepareCall(sql);
             statement.setString(1, "%" + purchasedDate);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Statistic statistic = new Statistic(resultSet.getString("purchasedDate"),
+                Statistic statistic = new Statistic(
                         resultSet.getString("movies_name"),
                         resultSet.getInt("viewCount"),
                         resultSet.getInt("turnover"));
                 // listStatisticByPurchaseDate.add(statistic);
-                System.out.println("Ngày: " + statistic.getPurchasedDate());
                 System.out.println("Phim: " + statistic.getMovies_name());
                 System.out.println("Lượt xem: " + statistic.getViewCount().toString());
                 System.out.println("Doanh thu: " + statistic.getTurnover().toString());
@@ -194,9 +193,19 @@ public class StatisticController {
         cell.setCellStyle(style);
         rownum += 2;
 
+        String statisticType;
+        if (purchasedDate.length() == 4)
+            statisticType = " NĂM ";
+        else if (purchasedDate.length() == 7)
+            statisticType = " THÁNG ";
+        else if (purchasedDate.length() == 10)
+            statisticType = " NGÀY ";
+        else
+            statisticType = "";
+
         row = sheet.createRow(rownum);
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("THỐNG KÊ DOANH SỐ RẠP CHIẾU " + purchasedDate);
+        cell.setCellValue("THỐNG KÊ DOANH SỐ RẠP CHIẾU " + statisticType + purchasedDate);
         cell.setCellStyle(style);
         rownum += 2;
 
@@ -206,20 +215,15 @@ public class StatisticController {
         cell.setCellStyle(style);
         rownum += 2;
 
-        row = sheet.createRow(rownum);
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("Ngày");
-        cell.setCellStyle(style);
-
-        cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Phim");
         cell.setCellStyle(style);
 
-        cell = row.createCell(2, CellType.STRING);
+        cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Lượt xem");
         cell.setCellStyle(style);
 
-        cell = row.createCell(3, CellType.STRING);
+        cell = row.createCell(2, CellType.STRING);
         cell.setCellValue("Doanh thu");
         cell.setCellStyle(style);
 
@@ -228,15 +232,12 @@ public class StatisticController {
             row = sheet.createRow(rownum);
 
             cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue(statistic.getPurchasedDate());
-
-            cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(statistic.getMovies_name());
 
-            cell = row.createCell(2, CellType.NUMERIC);
+            cell = row.createCell(1, CellType.NUMERIC);
             cell.setCellValue(statistic.getViewCount());
 
-            cell = row.createCell(3, CellType.NUMERIC);
+            cell = row.createCell(2, CellType.NUMERIC);
             cell.setCellValue(statistic.getTurnover());
         }
 

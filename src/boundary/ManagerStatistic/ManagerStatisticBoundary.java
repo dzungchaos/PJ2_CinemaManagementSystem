@@ -57,7 +57,6 @@ public class ManagerStatisticBoundary {
 
     @FXML
     public void doExportStatistic(ActionEvent event) throws IOException {
-        // System.out.println("Purchased Date: " + purchasedDate);
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Xuất báo cáo");
         chooser.getExtensionFilters().addAll(
