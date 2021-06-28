@@ -22,6 +22,7 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
       <Label text="ĐẶT VÉ XEM PHIM" GridPane.columnSpan="2">
@@ -53,5 +54,7 @@
          </GridPane.margin></HBox>
       <Label text="Ghế đã được mua" GridPane.rowIndex="10" />
       <Label fx:id="labelPaidSeat" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <Label text="Giá vé" GridPane.rowIndex="11" />
+      <Label text="40.000 VNĐ" GridPane.columnIndex="1" GridPane.rowIndex="11" />
    </children>
 </GridPane>

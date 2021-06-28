@@ -215,6 +215,7 @@ public class StatisticController {
         cell.setCellStyle(style);
         rownum += 2;
 
+        row = sheet.createRow(rownum);
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Phim");
         cell.setCellStyle(style);
